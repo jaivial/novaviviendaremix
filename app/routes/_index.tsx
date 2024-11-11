@@ -175,9 +175,9 @@ export default function Index() {
           </ul>
         </nav>
         <div className="fixed top-0 left-0 z-50">
-          <p>scrolling: {scrollY}</p>
-          <p>screenWidth: {screenWidth}</p>
-          <p>viewportHeight: {viewportHeight}</p>
+          <p className="opacity-0">scrolling: {scrollY}</p>
+          <p className="opacity-0">screenWidth: {screenWidth}</p>
+          <p className="opacity-0">viewportHeight: {viewportHeight}</p>
         </div>
         <div
           ref={layer1Ref}
@@ -382,11 +382,11 @@ export default function Index() {
                 : screenWidth < 360 && viewportHeight >= 810
                 ? { width: "85%", marginBottom: "100px" }
                 : screenWidth < 390 && viewportHeight >= 810
-                ? { width: "85%", marginBottom: "80px" }
+                ? { width: "85%", marginBottom: "100px" }
                 : screenWidth < 430 && viewportHeight >= 810
-                ? { width: "70%", marginBottom: "50px" }
+                ? { width: "70%", marginBottom: "100px" }
                 : screenWidth < 500 && viewportHeight >= 810
-                ? { width: "70%", marginBottom: "50px" }
+                ? { width: "70%", marginBottom: "100px" }
                 : { width: "100%" }),
             }}
           />
