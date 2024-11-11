@@ -1,5 +1,5 @@
-import type { MetaFunction } from "@remix-run/node";
-import { useEffect, useState } from "react";
+import type { MetaFunction, LinksFunction } from "@remix-run/node";
+import { useEffect, useState, useRef } from "react";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 
 export const meta: MetaFunction = () => {
@@ -16,94 +16,383 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  const [isFixed, setIsFixed] = useState(true);
+  const [screenWidth, setScreenWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 0);
+  const [viewportHeight, setViewportHeight] = useState(typeof window !== "undefined" ? window.innerHeight : 0);
+  const layer1Ref = useRef(null);
+  const layer2Ref = useRef(null);
+  const layer3Ref = useRef(null);
+  const navRef = useRef(null);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleResize = () => setViewportHeight(window.innerHeight);
+
+    window.addEventListener("resize", handleResize);
+    setViewportHeight(window.innerHeight); // Set initial height
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    let lastScrollY = 0;
+    if (typeof window !== "undefined") {
+      lastScrollY = window.scrollY; // Initial value at page load
+
+      // Update the value on scroll
+      window.addEventListener("scroll", () => {
+        lastScrollY = window.scrollY;
+        console.log("Top of viewport Y position:", lastScrollY);
+      });
+    }
+    let ticking = false;
+
     const handleScroll = () => {
-      // Check if the scroll position is greater than or equal to 1000px
-      if (window.scrollY >= 100) {
-        setIsFixed(false); // Stop fixing the element after 1000px
-      } else {
-        setIsFixed(true); // Fix the element within the first 1000px
+      setScrollY(lastScrollY);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (layer1Ref.current) {
+            layer1Ref.current.style.transform = `translateY(${lastScrollY * 3}px)`;
+          }
+
+          if (layer2Ref.current && lastScrollY <= 0) {
+            layer2Ref.current.style.opacity = 0;
+            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          } else if (layer2Ref.current && lastScrollY > 0 && lastScrollY < 260) {
+            layer2Ref.current.style.transform = `translateY(${lastScrollY * -3}px)`;
+            layer2Ref.current.style.opacity = 1;
+            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          } else if (layer2Ref.current && lastScrollY <= 260) {
+            layer2Ref.current.style.transform = `translateY(${lastScrollY * -3}px)`;
+          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 330) {
+            layer2Ref.current.style.opacity = 100;
+            layer2Ref.current.style.position = "fixed";
+            layer2Ref.current.style.top = `855px`;
+            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 435) {
+            layer2Ref.current.style.opacity = 100;
+            layer2Ref.current.style.position = "fixed";
+            layer2Ref.current.style.top = `845px`;
+            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 650) {
+            layer2Ref.current.style.opacity = 100;
+            layer2Ref.current.style.position = "fixed";
+            layer2Ref.current.style.top = `835px`;
+            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 1070) {
+            layer2Ref.current.style.opacity = 100;
+            layer2Ref.current.style.position = "fixed";
+            layer2Ref.current.style.top = `820px`;
+            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 1200) {
+            layer2Ref.current.style.opacity = 100;
+            layer2Ref.current.style.position = "fixed";
+            layer2Ref.current.style.top = `810px`;
+            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 1290) {
+            layer2Ref.current.style.opacity = 100;
+            layer2Ref.current.style.position = "fixed";
+            layer2Ref.current.style.top = `810px`;
+            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth >= 1290) {
+            layer2Ref.current.style.opacity = 100;
+            layer2Ref.current.style.position = "fixed";
+            layer2Ref.current.style.top = `780px`;
+            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          } else if (layer2Ref.current && lastScrollY >= 840) {
+            layer2Ref.current.style.opacity = 0;
+            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          }
+
+          // layer3Ref
+          if (layer3Ref.current && lastScrollY > 0 && lastScrollY >= 320 && lastScrollY < 755) {
+            layer3Ref.current.style.opacity = 1;
+            layer3Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          } else if (layer3Ref.current && lastScrollY < 320) {
+            layer3Ref.current.style.opacity = 0;
+            layer3Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          } else if (layer3Ref.current && lastScrollY >= 755) {
+            layer3Ref.current.style.opacity = 0;
+            layer3Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          }
+
+          if (navRef.current && lastScrollY < 260) {
+            navRef.current.style.opacity = 0;
+          } else if (navRef.current && lastScrollY >= 260) {
+            navRef.current.style.opacity = 1;
+            navRef.current.style.transition = `opacity 1s ease-in-out`;
+          }
+
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
     window.addEventListener("scroll", handleScroll);
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  return (
-    <div className="bg-gray-700">
-      <Parallax pages={3} style={{ height: "100%" }} className="bg-zinc-800 m-0 p-0">
-        <ParallaxLayer
-          offset={0}
-          speed={-3}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          className="z-20"
-        >
-          <img src="/background.png" alt="Background" style={{ width: "100%", height: "auto", margin: "0" }} />
-        </ParallaxLayer>
+  useEffect(() => {
+    if (typeof window === "undefined") return;
 
-        {/* Layer with conditional positioning */}
-        <ParallaxLayer className="flex flex-col items-bottom justify-center z-10" sticky={{ start: 1, end: 3 }} offset={0}>
-          <h1 className="text-gray-50 font-sans font-bold text-[15rem]">Vivienda Nova</h1>
-        </ParallaxLayer>
-      </Parallax>
+    const handleResize = () => setScreenWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+
+    // Set initial width in case of rehydration or client-side only
+    setScreenWidth(window.innerWidth);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return (
+    <div>
+      <div
+        style={{
+          backgroundImage: "url('/blackbg4edit2.jpg')",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          position: "relative",
+          overflow: "hidden",
+          width: "100%",
+          height: "1700px",
+        }}
+      >
+        <nav ref={navRef} className="fixed top-0 left-0 w-full opacity-0">
+          <ul className="flex justify-center items-center w-fit px-8 mx-auto gap-8 text-white pt-8 text-sans font-medium border-b border-white pb-4">
+            <li>
+              <a href="/">Inicio</a>
+            </li>
+            <li>
+              <a href="/about">Precios</a>
+            </li>
+            <li>
+              <a href="/contact">Servicios</a>
+            </li>
+          </ul>
+        </nav>
+        <div className="fixed top-0 left-0 z-50">
+          <p className="opacity-0">scrolling: {scrollY}</p>
+          <p className="opacity-0">screenWidth: {screenWidth}</p>
+          <p className="opacity-0">viewportHeight: {viewportHeight}</p>
+        </div>
+        <div
+          ref={layer1Ref}
+          className={`layer1 z-10`}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100vh",
+            transform: "translateY(0px)", // Initial transform to avoid bouncing
+            transition: "transform 0.1s ease-out", // Optional smoothness in movement
+            ...(screenWidth < 1300
+              ? {
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "end",
+                  alignItems: "center",
+                }
+              : {}),
+          }}
+        >
+          {screenWidth < 450 ? (
+            <img
+              src="/background2.png"
+              alt="Background"
+              style={{
+                height: "auto",
+                margin: "0",
+                ...(screenWidth < 300
+                  ? {
+                      maxWidth: "215%",
+                      width: "215%",
+                      transform: "translateX(-30px)",
+                    }
+                  : screenWidth < 330
+                  ? {
+                      maxWidth: "200%",
+                      width: "200%",
+                      transform: "translateX(-20px)",
+                    }
+                  : screenWidth < 350
+                  ? {
+                      maxWidth: "200%",
+                      width: "200%",
+                      transform: "translateX(-20px)",
+                    }
+                  : screenWidth < 370
+                  ? {
+                      maxWidth: "200%",
+                      width: "200%",
+                      transform: "translateX(-20px)",
+                    }
+                  : screenWidth < 385
+                  ? {
+                      maxWidth: "200%",
+                      width: "200%",
+                      transform: "translateX(-20px)",
+                    }
+                  : screenWidth < 400
+                  ? {
+                      maxWidth: "190%",
+                      width: "190%",
+                      transform: "translateX(-20px)",
+                    }
+                  : screenWidth < 450
+                  ? {
+                      maxWidth: "150%",
+                      width: "150%",
+                      transform: "translateX(-20px)",
+                    }
+                  : {
+                      maxWidth: "180%",
+                      width: "180%",
+                    }),
+              }}
+            />
+          ) : (
+            <img
+              src="/background.png"
+              alt="Background"
+              style={{
+                height: "auto",
+                margin: "0",
+                ...(screenWidth < 550
+                  ? {
+                      maxWidth: "200%",
+                      width: "200%",
+                      transform: "translateX(-30px)",
+                    }
+                  : screenWidth < 650
+                  ? {
+                      maxWidth: "180%",
+                      width: "180%",
+                    }
+                  : screenWidth < 750
+                  ? {
+                      maxWidth: "160%",
+                      width: "160%",
+                    }
+                  : screenWidth < 930
+                  ? {
+                      maxWidth: "140%",
+                      width: "140%",
+                    }
+                  : {
+                      maxWidth: "100%",
+                      width: "100%",
+                    }),
+              }}
+            />
+          )}
+        </div>
+        <div className={`z-0 h-[1400px] w-full relative transition-transform duration-75 ease-in-out opacity-100 flex justify-center items-end`}>
+          <h1
+            ref={layer2Ref}
+            className={`font-bold p-0 m-0 text-center relative drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] justify-center items-center ${
+              screenWidth < 330
+                ? "text-[2.5rem]"
+                : screenWidth < 380
+                ? "text-[3rem]"
+                : screenWidth < 435
+                ? "text-[3.5rem]"
+                : screenWidth < 489
+                ? "text-[4rem]"
+                : screenWidth < 540
+                ? "text-[4.5rem]"
+                : screenWidth < 595
+                ? "text-[5rem]"
+                : screenWidth < 650
+                ? "text-[5.5rem]"
+                : screenWidth < 810
+                ? "text-[6rem]"
+                : screenWidth < 810
+                ? "text-[7rem]"
+                : screenWidth < 860
+                ? "text-[7.5rem]"
+                : screenWidth < 1070
+                ? "text-[8rem]"
+                : screenWidth < 1290
+                ? "text-[10rem]"
+                : screenWidth < 1490
+                ? "text-[12rem]"
+                : screenWidth < 1600
+                ? "text-[14rem]"
+                : "text-[15rem]"
+            }`}
+            style={{
+              background: "linear-gradient(170deg, #f9fafb, #e5e7eb, #9ca3af, #6b7280)",
+              color: "transparent",
+              WebkitBackgroundClip: "text",
+            }}
+          >
+            Vivienda Nova
+          </h1>
+        </div>
+        <div
+          ref={layer3Ref}
+          className={`fixed left-[50%] translate-x-[-50%] z-50  opacity-0 ${
+            screenWidth < 435 ? "w-[90%] top-[63%] translate-y-[-50%]" : screenWidth < 450 ? "w-[90%] top-[63%] translate-y-[-50%]" : screenWidth < 500 ? "w-[90%] top-[63%] translate-y-[-50%]" : screenWidth < 600 ? "w-[95%] top-[50%] translate-y-[-50%]" : screenWidth < 760 ? "w-[95%] top-[250px]" : screenWidth < 800 ? "top-[250px] w-[740px] " : "top-[330px] w-[780px]"
+          }`}
+        >
+          <h2 className={`font-sans text-gray-50 font-semibold ${screenWidth < 430 ? "text-2xl" : "text-3xl"} text-center`}>Una nueva forma de vender</h2>
+          <img
+            src={`${screenWidth < 500 ? "/iphone15v1.png" : "/imacMockup.png"}`}
+            alt="imacMockup"
+            style={{
+              height: "auto",
+              margin: "0 auto",
+              ...(screenWidth < 360 && viewportHeight < 705
+                ? { width: "75%", marginBottom: "30px" }
+                : screenWidth < 390 && viewportHeight < 705
+                ? { width: "70%", marginBottom: "30px" }
+                : screenWidth < 430 && viewportHeight < 705
+                ? { width: "65%", marginBottom: "30px" }
+                : screenWidth < 500 && viewportHeight < 705
+                ? { width: "52%" }
+                : screenWidth < 360 && viewportHeight < 755
+                ? { width: "75%", marginBottom: "50px" }
+                : screenWidth < 390 && viewportHeight < 755
+                ? { width: "75%", marginBottom: "50px" }
+                : screenWidth < 430 && viewportHeight < 755
+                ? { width: "75%", marginBottom: "50px" }
+                : screenWidth < 500 && viewportHeight < 755
+                ? { width: "58%", marginBottom: "50px" }
+                : screenWidth < 360 && viewportHeight < 780
+                ? { width: "80%", marginBottom: "60px" }
+                : screenWidth < 390 && viewportHeight < 780
+                ? { width: "80%", marginBottom: "60px" }
+                : screenWidth < 430 && viewportHeight < 780
+                ? { width: "76%", marginBottom: "60px" }
+                : screenWidth < 500 && viewportHeight < 780
+                ? { width: "65%", marginBottom: "60px" }
+                : screenWidth < 360 && viewportHeight < 810
+                ? { width: "85%", marginBottom: "80px" }
+                : screenWidth < 390 && viewportHeight < 810
+                ? { width: "85%", marginBottom: "80px" }
+                : screenWidth < 430 && viewportHeight < 810
+                ? { width: "80%", marginBottom: "65px" }
+                : screenWidth < 500 && viewportHeight < 810
+                ? { width: "68%", marginBottom: "50px" }
+                : screenWidth < 360 && viewportHeight >= 810
+                ? { width: "85%", marginBottom: "100px" }
+                : screenWidth < 390 && viewportHeight >= 810
+                ? { width: "85%", marginBottom: "100px" }
+                : screenWidth < 430 && viewportHeight >= 810
+                ? { width: "70%", marginBottom: "100px" }
+                : screenWidth < 500 && viewportHeight >= 810
+                ? { width: "70%", marginBottom: "100px" }
+                : { width: "100%" }),
+            }}
+          />
+        </div>
+      </div>
+      <div className="bg-black h-[20000px]"></div>
     </div>
   );
 }
-
-const resources = [
-  {
-    href: "https://remix.run/start/quickstart",
-    text: "Quick Start (5 min)",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 20 20" fill="none" className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300">
-        <path d="M8.51851 12.0741L7.92592 18L15.6296 9.7037L11.4815 7.33333L12.0741 2L4.37036 10.2963L8.51851 12.0741Z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-  },
-  {
-    href: "https://remix.run/start/tutorial",
-    text: "Tutorial (30 min)",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 20 20" fill="none" className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300">
-        <path
-          d="M4.561 12.749L3.15503 14.1549M3.00811 8.99944H1.01978M3.15503 3.84489L4.561 5.2508M8.3107 1.70923L8.3107 3.69749M13.4655 3.84489L12.0595 5.2508M18.1868 17.0974L16.635 18.6491C16.4636 18.8205 16.1858 18.8205 16.0144 18.6491L13.568 16.2028C13.383 16.0178 13.0784 16.0347 12.915 16.239L11.2697 18.2956C11.047 18.5739 10.6029 18.4847 10.505 18.142L7.85215 8.85711C7.75756 8.52603 8.06365 8.21994 8.39472 8.31453L17.6796 10.9673C18.0223 11.0653 18.1115 11.5094 17.8332 11.7321L15.7766 13.3773C15.5723 13.5408 15.5554 13.8454 15.7404 14.0304L18.1868 16.4767C18.3582 16.6481 18.3582 16.926 18.1868 17.0974Z"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    href: "https://remix.run/docs",
-    text: "Remix Docs",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 20 20" fill="none" className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300">
-        <path
-          d="M9.99981 10.0751V9.99992M17.4688 17.4688C15.889 19.0485 11.2645 16.9853 7.13958 12.8604C3.01467 8.73546 0.951405 4.11091 2.53116 2.53116C4.11091 0.951405 8.73546 3.01467 12.8604 7.13958C16.9853 11.2645 19.0485 15.889 17.4688 17.4688ZM2.53132 17.4688C0.951566 15.8891 3.01483 11.2645 7.13974 7.13963C11.2647 3.01471 15.8892 0.951453 17.469 2.53121C19.0487 4.11096 16.9854 8.73551 12.8605 12.8604C8.73562 16.9853 4.11107 19.0486 2.53132 17.4688Z"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    href: "https://rmx.as/discord",
-    text: "Join Discord",
-    icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 24 20" fill="none" className="stroke-gray-600 group-hover:stroke-current dark:stroke-gray-300">
-        <path
-          d="M15.0686 1.25995L14.5477 1.17423L14.2913 1.63578C14.1754 1.84439 14.0545 2.08275 13.9422 2.31963C12.6461 2.16488 11.3406 2.16505 10.0445 2.32014C9.92822 2.08178 9.80478 1.84975 9.67412 1.62413L9.41449 1.17584L8.90333 1.25995C7.33547 1.51794 5.80717 1.99419 4.37748 2.66939L4.19 2.75793L4.07461 2.93019C1.23864 7.16437 0.46302 11.3053 0.838165 15.3924L0.868838 15.7266L1.13844 15.9264C2.81818 17.1714 4.68053 18.1233 6.68582 18.719L7.18892 18.8684L7.50166 18.4469C7.96179 17.8268 8.36504 17.1824 8.709 16.4944L8.71099 16.4904C10.8645 17.0471 13.128 17.0485 15.2821 16.4947C15.6261 17.1826 16.0293 17.8269 16.4892 18.4469L16.805 18.8725L17.3116 18.717C19.3056 18.105 21.1876 17.1751 22.8559 15.9238L23.1224 15.724L23.1528 15.3923C23.5873 10.6524 22.3579 6.53306 19.8947 2.90714L19.7759 2.73227L19.5833 2.64518C18.1437 1.99439 16.6386 1.51826 15.0686 1.25995ZM16.6074 10.7755L16.6074 10.7756C16.5934 11.6409 16.0212 12.1444 15.4783 12.1444C14.9297 12.1444 14.3493 11.6173 14.3493 10.7877C14.3493 9.94885 14.9378 9.41192 15.4783 9.41192C16.0471 9.41192 16.6209 9.93851 16.6074 10.7755ZM8.49373 12.1444C7.94513 12.1444 7.36471 11.6173 7.36471 10.7877C7.36471 9.94885 7.95323 9.41192 8.49373 9.41192C9.06038 9.41192 9.63892 9.93712 9.6417 10.7815C9.62517 11.6239 9.05462 12.1444 8.49373 12.1444Z"
-          strokeWidth="1.5"
-        />
-      </svg>
-    ),
-  },
-];
