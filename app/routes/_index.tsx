@@ -19,6 +19,7 @@ export default function Index() {
   const [screenWidth, setScreenWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 0);
   const layer1Ref = useRef(null);
   const layer2Ref = useRef(null);
+  const layer3Ref = useRef(null);
   const navRef = useRef(null);
   const [scrollY, setScrollY] = useState(0);
 
@@ -52,39 +53,56 @@ export default function Index() {
             layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
           } else if (layer2Ref.current && lastScrollY <= 260) {
             layer2Ref.current.style.transform = `translateY(${lastScrollY * -3}px)`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 1200 && screenWidth < 330) {
+          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 330) {
             layer2Ref.current.style.opacity = 100;
             layer2Ref.current.style.position = "fixed";
             layer2Ref.current.style.top = `855px`;
             layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 1200 && screenWidth < 435) {
+          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 435) {
             layer2Ref.current.style.opacity = 100;
             layer2Ref.current.style.position = "fixed";
             layer2Ref.current.style.top = `845px`;
             layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 1200 && screenWidth < 650) {
+          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 650) {
             layer2Ref.current.style.opacity = 100;
             layer2Ref.current.style.position = "fixed";
             layer2Ref.current.style.top = `835px`;
             layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 1200 && screenWidth < 1070) {
+          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 1070) {
             layer2Ref.current.style.opacity = 100;
             layer2Ref.current.style.position = "fixed";
             layer2Ref.current.style.top = `820px`;
             layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 1200 && screenWidth < 1290) {
+          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 1200) {
             layer2Ref.current.style.opacity = 100;
             layer2Ref.current.style.position = "fixed";
             layer2Ref.current.style.top = `810px`;
             layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 1200 && screenWidth >= 1290) {
+          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 1290) {
+            layer2Ref.current.style.opacity = 100;
+            layer2Ref.current.style.position = "fixed";
+            layer2Ref.current.style.top = `810px`;
+            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth >= 1290) {
             layer2Ref.current.style.opacity = 100;
             layer2Ref.current.style.position = "fixed";
             layer2Ref.current.style.top = `780px`;
             layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY >= 1200) {
+          } else if (layer2Ref.current && lastScrollY >= 840) {
             layer2Ref.current.style.opacity = 0;
             layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          }
+
+          // layer3Ref
+          if (layer3Ref.current && lastScrollY > 0 && lastScrollY >= 320 && lastScrollY < 755) {
+            layer3Ref.current.style.opacity = 1;
+            layer3Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          } else if (layer3Ref.current && lastScrollY < 320) {
+            layer3Ref.current.style.opacity = 0;
+            layer3Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          } else if (layer3Ref.current && lastScrollY >= 755) {
+            layer3Ref.current.style.opacity = 0;
+            layer3Ref.current.style.transition = `opacity 0.6s ease-in-out`;
           }
 
           if (navRef.current && lastScrollY < 260) {
@@ -302,6 +320,15 @@ export default function Index() {
           >
             Vivienda Nova
           </h1>
+        </div>
+        <div
+          ref={layer3Ref}
+          className={`fixed left-[50%] translate-x-[-50%] z-50  opacity-0 ${
+            screenWidth < 435 ? "w-[80%] top-[58%] translate-y-[-50%]" : screenWidth < 450 ? "w-[80%] top-[58%] translate-y-[-50%]" : screenWidth < 500 ? "w-[70%] top-[58%] translate-y-[-50%]" : screenWidth < 600 ? "w-[95%] top-[50%] translate-y-[-50%]" : screenWidth < 760 ? "w-[95%] top-[250px]" : screenWidth < 800 ? "top-[250px] w-[740px] " : "top-[330px] w-[780px]"
+          }`}
+        >
+          <h2 className="font-sans text-gray-50 font-semibold text-3xl text-center">Una nueva forma de vender</h2>
+          <img src={`${screenWidth < 500 ? "/iphone15v1.png" : "/imacMockup.png"}`} alt="imacMockup" style={{ width: "100%", height: "auto", margin: "0" }} />
         </div>
       </div>
       <div className="bg-black h-[20000px]"></div>
