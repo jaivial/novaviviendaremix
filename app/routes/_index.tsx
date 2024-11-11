@@ -185,8 +185,9 @@ export default function Index() {
             layer3Ref.current.style.opacity = 0;
             layer3Ref.current.style.transition = `opacity 0.3s ease-in-out`;
           }
-
-          if (navRef.current && lastScrollY < 260) {
+          if (navRef.current && lastScrollY <= 0) {
+            navRef.current.style.opacity = 0;
+          } else if (navRef.current && lastScrollY < 260) {
             navRef.current.style.opacity = 0;
           } else if (navRef.current && lastScrollY >= 260) {
             navRef.current.style.opacity = 1;
@@ -230,7 +231,7 @@ export default function Index() {
           height: "1700px",
         }}
       >
-        <nav ref={navRef} className="fixed top-0 left-0 right-0 px-16 w-fit mx-auto mt-3 rounded-xl py-auto z-[99] backdrop-blur-sm bg-gray-950 bg-opacity-50 flex flex-col justify-center items-center border-[0.9px] border-gray-400 border-opacity-50">
+        <nav ref={navRef} className="fixed top-0 left-0 right-0 px-16 w-fit mx-auto mt-3 rounded-xl py-auto z-[99] backdrop-blur-sm bg-gray-950 bg-opacity-50 opacity-0 flex flex-col justify-center items-center border-[0.9px] border-gray-400 border-opacity-50">
           <ul className="flex justify-center items-center w-fit px-8 mx-auto gap-8 text-gray-200 pt-4 text-sans font-medium pb-4 z-[99]">
             <li>
               <a href="/">Inicio</a>
