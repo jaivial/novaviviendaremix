@@ -17,11 +17,23 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   const [screenWidth, setScreenWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 0);
+  const [viewportHeight, setViewportHeight] = useState(typeof window !== "undefined" ? window.innerHeight : 0);
   const layer1Ref = useRef(null);
   const layer2Ref = useRef(null);
   const layer3Ref = useRef(null);
   const navRef = useRef(null);
   const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleResize = () => setViewportHeight(window.innerHeight);
+
+    window.addEventListener("resize", handleResize);
+    setViewportHeight(window.innerHeight); // Set initial height
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     let lastScrollY = 0;
@@ -165,6 +177,7 @@ export default function Index() {
         <div className="fixed top-0 left-0 z-50">
           <p>scrolling: {scrollY}</p>
           <p>screenWidth: {screenWidth}</p>
+          <p>viewportHeight: {viewportHeight}</p>
         </div>
         <div
           ref={layer1Ref}
@@ -327,8 +340,56 @@ export default function Index() {
             screenWidth < 435 ? "w-[90%] top-[63%] translate-y-[-50%]" : screenWidth < 450 ? "w-[90%] top-[63%] translate-y-[-50%]" : screenWidth < 500 ? "w-[90%] top-[63%] translate-y-[-50%]" : screenWidth < 600 ? "w-[95%] top-[50%] translate-y-[-50%]" : screenWidth < 760 ? "w-[95%] top-[250px]" : screenWidth < 800 ? "top-[250px] w-[740px] " : "top-[330px] w-[780px]"
           }`}
         >
-          <h2 className={`font-sans text-gray-50 font-semibold ${screenWidth < 430 ? "text-2xl" : "text3xl"} text-center`}>Una nueva forma de vender</h2>
-          <img src={`${screenWidth < 500 ? "/iphone15v1.png" : "/imacMockup.png"}`} alt="imacMockup" style={{ height: "auto", margin: "0 auto", ...(screenWidth < 360 ? { width: "75%" } : screenWidth < 390 ? { width: "65%" } : screenWidth < 430 ? { width: "60%" } : screenWidth < 500 ? { width: "52%" } : { width: "100%" }) }} />
+          <h2 className={`font-sans text-gray-50 font-semibold ${screenWidth < 430 ? "text-2xl" : "text-3xl"} text-center`}>Una nueva forma de vender</h2>
+          <img
+            src={`${screenWidth < 500 ? "/iphone15v1.png" : "/imacMockup.png"}`}
+            alt="imacMockup"
+            style={{
+              height: "auto",
+              margin: "0 auto",
+              ...(screenWidth < 360 && viewportHeight < 705
+                ? { width: "75%", marginBottom: "30px" }
+                : screenWidth < 390 && viewportHeight < 705
+                ? { width: "70%", marginBottom: "30px" }
+                : screenWidth < 430 && viewportHeight < 705
+                ? { width: "65%", marginBottom: "30px" }
+                : screenWidth < 500 && viewportHeight < 705
+                ? { width: "52%" }
+                : screenWidth < 360 && viewportHeight < 755
+                ? { width: "75%", marginBottom: "50px" }
+                : screenWidth < 390 && viewportHeight < 755
+                ? { width: "75%", marginBottom: "50px" }
+                : screenWidth < 430 && viewportHeight < 755
+                ? { width: "75%", marginBottom: "50px" }
+                : screenWidth < 500 && viewportHeight < 755
+                ? { width: "58%", marginBottom: "50px" }
+                : screenWidth < 360 && viewportHeight < 780
+                ? { width: "80%", marginBottom: "60px" }
+                : screenWidth < 390 && viewportHeight < 780
+                ? { width: "80%", marginBottom: "60px" }
+                : screenWidth < 430 && viewportHeight < 780
+                ? { width: "76%", marginBottom: "60px" }
+                : screenWidth < 500 && viewportHeight < 780
+                ? { width: "65%", marginBottom: "60px" }
+                : screenWidth < 360 && viewportHeight < 810
+                ? { width: "85%", marginBottom: "80px" }
+                : screenWidth < 390 && viewportHeight < 810
+                ? { width: "85%", marginBottom: "80px" }
+                : screenWidth < 430 && viewportHeight < 810
+                ? { width: "80%", marginBottom: "65px" }
+                : screenWidth < 500 && viewportHeight < 810
+                ? { width: "68%", marginBottom: "50px" }
+                : screenWidth < 360 && viewportHeight >= 810
+                ? { width: "85%", marginBottom: "100px" }
+                : screenWidth < 390 && viewportHeight >= 810
+                ? { width: "85%", marginBottom: "80px" }
+                : screenWidth < 430 && viewportHeight >= 810
+                ? { width: "70%", marginBottom: "50px" }
+                : screenWidth < 500 && viewportHeight >= 810
+                ? { width: "70%", marginBottom: "50px" }
+                : { width: "100%" }),
+            }}
+          />
         </div>
       </div>
       <div className="bg-black h-[20000px]"></div>
