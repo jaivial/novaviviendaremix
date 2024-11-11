@@ -324,11 +324,11 @@ export default function Index() {
         <div
           ref={layer3Ref}
           className={`fixed left-[50%] translate-x-[-50%] z-50  opacity-0 ${
-            screenWidth < 435 ? "w-[80%] top-[58%] translate-y-[-50%]" : screenWidth < 450 ? "w-[80%] top-[58%] translate-y-[-50%]" : screenWidth < 500 ? "w-[70%] top-[58%] translate-y-[-50%]" : screenWidth < 600 ? "w-[95%] top-[50%] translate-y-[-50%]" : screenWidth < 760 ? "w-[95%] top-[250px]" : screenWidth < 800 ? "top-[250px] w-[740px] " : "top-[330px] w-[780px]"
+            screenWidth < 435 ? "w-[90%] top-[63%] translate-y-[-50%]" : screenWidth < 450 ? "w-[90%] top-[63%] translate-y-[-50%]" : screenWidth < 500 ? "w-[90%] top-[63%] translate-y-[-50%]" : screenWidth < 600 ? "w-[95%] top-[50%] translate-y-[-50%]" : screenWidth < 760 ? "w-[95%] top-[250px]" : screenWidth < 800 ? "top-[250px] w-[740px] " : "top-[330px] w-[780px]"
           }`}
         >
-          <h2 className="font-sans text-gray-50 font-semibold text-3xl text-center">Una nueva forma de vender</h2>
-          <img src={`${screenWidth < 500 ? "/iphone15v1.png" : "/imacMockup.png"}`} alt="imacMockup" style={{ width: "100%", height: "auto", margin: "0" }} />
+          <h2 className={`font-sans text-gray-50 font-semibold ${screenWidth < 430 ? "text-2xl" : "text3xl"} text-center`}>Una nueva forma de vender</h2>
+          <img src={`${screenWidth < 500 ? "/iphone15v1.png" : "/imacMockup.png"}`} alt="imacMockup" style={{ height: "auto", margin: "0 auto", ...(screenWidth < 360 ? { width: "75%" } : screenWidth < 390 ? { width: "65%" } : screenWidth < 430 ? { width: "60%" } : screenWidth < 500 ? { width: "52%" } : { width: "100%" }) }} />
         </div>
       </div>
       <div className="bg-black h-[20000px]"></div>
