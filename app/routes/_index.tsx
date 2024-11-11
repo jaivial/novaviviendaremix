@@ -18,11 +18,77 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   const [screenWidth, setScreenWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 0);
   const [viewportHeight, setViewportHeight] = useState(typeof window !== "undefined" ? window.innerHeight : 0);
+  const [isH2Visible, setIsH2Visible] = useState(false);
+  const [isH3Visible, setIsH3Visible] = useState(false);
+  const [isH2Visible2, setIsH2Visible2] = useState(false);
+  const [isH3Visible2, setIsH3Visible2] = useState(false);
+  const [isVideoContainerVisible, setIsVideoContainerVisible] = useState(false);
+  const [isVideoContainerVisible2, setIsVideoContainerVisible2] = useState(false);
+  const sectionRef = useRef(null);
+  const sectionRef2 = useRef(null);
   const layer1Ref = useRef(null);
   const layer2Ref = useRef(null);
   const layer3Ref = useRef(null);
   const navRef = useRef(null);
   const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsH2Visible(true);
+            setIsH3Visible(true);
+            setIsVideoContainerVisible(true);
+          } else {
+            setIsH2Visible(false);
+            setIsH3Visible(false);
+            setIsVideoContainerVisible(false);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsH2Visible2(true);
+            setIsH3Visible2(true);
+            setIsVideoContainerVisible2(true);
+          } else {
+            setIsH2Visible2(false);
+            setIsH3Visible2(false);
+            setIsVideoContainerVisible2(false);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (sectionRef2.current) {
+      observer.observe(sectionRef2.current);
+    }
+
+    return () => {
+      if (sectionRef2.current) {
+        observer.unobserve(sectionRef2.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -59,6 +125,9 @@ export default function Index() {
           if (layer2Ref.current && lastScrollY <= 0) {
             layer2Ref.current.style.opacity = 0;
             layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+            layer2Ref.current.style.top = "780px";
+            layer2Ref.current.style.transform = "translateY(0px)";
+            layer2Ref.current.style.position = "fixed";
           } else if (layer2Ref.current && lastScrollY > 0 && lastScrollY < 260) {
             layer2Ref.current.style.transform = `translateY(${lastScrollY * -3}px)`;
             layer2Ref.current.style.opacity = 1;
@@ -161,8 +230,8 @@ export default function Index() {
           height: "1700px",
         }}
       >
-        <nav ref={navRef} className="fixed top-0 left-0 w-full opacity-0">
-          <ul className="flex justify-center items-center w-fit px-8 mx-auto gap-8 text-white pt-8 text-sans font-medium border-b border-white pb-4">
+        <nav ref={navRef} className="fixed top-0 left-0 right-0 px-16 w-fit mx-auto mt-3 rounded-xl py-auto z-[99] backdrop-blur-sm bg-gray-950 bg-opacity-50 flex flex-col justify-center items-center border-[0.9px] border-gray-400 border-opacity-50">
+          <ul className="flex justify-center items-center w-fit px-8 mx-auto gap-8 text-gray-200 pt-4 text-sans font-medium pb-4 z-[99]">
             <li>
               <a href="/">Inicio</a>
             </li>
@@ -295,7 +364,7 @@ export default function Index() {
         <div className={`z-0 h-[1400px] w-full relative transition-transform duration-75 ease-in-out opacity-100 flex justify-center items-end`}>
           <h1
             ref={layer2Ref}
-            className={`font-bold p-0 m-0 text-center relative drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] justify-center items-center ${
+            className={`font-bold p-0 m-0 text-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] justify-center items-center ${
               screenWidth < 330
                 ? "text-[2.5rem]"
                 : screenWidth < 380
@@ -330,7 +399,10 @@ export default function Index() {
               background: "linear-gradient(170deg, #f9fafb, #e5e7eb, #9ca3af, #6b7280)",
               color: "transparent",
               WebkitBackgroundClip: "text",
-              transition: "all 0.5sease-in-out",
+              transition: "all 0.5s ease-in-out",
+              position: "fixed",
+              opacity: 0,
+              top: "780px",
             }}
           >
             Vivienda Nova
@@ -394,7 +466,45 @@ export default function Index() {
           />
         </div>
       </div>
-      <div className="bg-black h-[20000px]"></div>
+      {/* Section 1 */}
+      <div ref={sectionRef} className={`bg-black h-auto flex flex-col justify-start items-center gap-1 indexinfocontainer1 pb-20 transition-opacity duration-[1500ms] ease-in-out`}>
+        <h2 className={`${isH2Visible ? "opacity-100" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out text-gray-50 font-sans ${screenWidth < 400 ? "text-3xl" : "text-4xl"} font-bold text-center`}>Controla tus inmuebles.</h2>
+        <h3 className={`${isH3Visible ? "opacity-70" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out text-gray-300 font-sans ${screenWidth < 400 ? "text-2xl" : "text-3xl"} font-bold text-center`}>Visualiza los datos.</h3>
+        <div className={`bg-gray-700 h-auto relative z-10 ${screenWidth < 1280 ? "w-[95%]" : " w-[1200px]"} rounded-3xl border border-gray-800 bg-opacity-0 mt-4 ${isVideoContainerVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out`}>
+          <div className="relative z-[10] w-full h-full">
+            <video autoPlay loop muted playsInline className="w-full z-10 h-full object-cover p-2 rounded-3xl opacity-100">
+              <source src="/video1.webm" type="video/webm" className="border border-gray-600 " />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div className="absolute top-1/2 left-1/2 w-[103%] h-[103%] bg-white opacity-30 rounded-3xl blur-2xl transform -translate-x-1/2 -translate-y-1/2 z-0"></div>
+        </div>
+        <p className={`${isVideoContainerVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out text-gray-400 font-sans font-medium pt-4 ${screenWidth < 400 ? "text-lg" : "text-xl"}  ${screenWidth <= 1000 ? "w-[90%]" : screenWidth <= 1500 ? "w-1/2" : "w-1/3"} text-center`}>
+          <strong className="text-white">Busca tus inmuebles.</strong> Filtra las propiedades y analiza qué está ocurriendo en tu estrategia de venta.
+        </p>
+      </div>
+
+      {/* Section 2 */}
+      <div ref={sectionRef2} className={`h-auto flex flex-col justify-start items-center gap-1 indexinfocontainer1 ${screenWidth < 600 ? "pb-8" : "pb-20"} transition-opacity duration-[1500ms] ease-in-out`}>
+        <div className={`h-auto relative z-10 ${screenWidth < 1280 ? "w-[95%]" : "w-[95%]"} rounded-3xl ${isVideoContainerVisible2 ? "opacity-100" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out flex ${screenWidth < 600 ? "flex-col-reverse justify-center items-center mt-0" : "flex-row justify-between mt-10"} `}>
+          <div className={`h-auto flex flex-col justify-center items-center ${screenWidth < 600 ? "w-full" : "w-1/2"} gap-4`}>
+            <div className={`h-fit flex flex-col justify-center gap-4 ${screenWidth < 600 ? "items-center" : "items-start"}`}>
+              <h2 className={`${isH2Visible2 ? "opacity-100" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out text-gray-50 font-sans font-bold ${screenWidth < 600 ? "text-center text-3xl pt-4" : "text-4xl"}`}>No es cómo vendes.</h2>
+              <h3 className={`${isH3Visible2 ? "opacity-70" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out text-gray-300 font-sans font-bold ${screenWidth < 600 ? "text-center text-2xl px-3" : "text-3xl"}`}>Es cómo organizas tu estrategia.</h3>
+              <button className={`${isH3Visible2 ? "opacity-100" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out text-gray-950 bg-gray-100 p-2 px-3 font-sans text-lg font-medium rounded-xl`}>Empieza ya</button>
+            </div>
+          </div>
+          <div className={`relative z-[10] h-full ${screenWidth < 600 ? "w-full" : "w-1/2"}`}>
+            <div className="absolute top-1/2 left-1/2 w-[103%] h-[103%] bg-white opacity-30 rounded-3xl blur-2xl transform -translate-x-1/2 -translate-y-1/2 z-0"></div>
+            <div className="relative z-[10]">
+              <video autoPlay loop muted playsInline className="w-full z-10 h-full object-cover p-2 rounded-3xl opacity-100">
+                <source src="/video2.webm" type="video/webm" className="border border-gray-600 " />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
