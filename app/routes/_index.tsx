@@ -102,95 +102,96 @@ export default function Index() {
   }, []);
 
   useEffect(() => {
-    let lastScrollY = 0;
-    if (typeof window !== "undefined") {
-      lastScrollY = window.scrollY; // Initial value at page load
+    const targetPosition = 0; // Target position from the top in pixels
+    const scrollThreshold = 260; // Scroll position at which the element should reach targetPosition
 
-      // Update the value on scroll
-      window.addEventListener("scroll", () => {
-        lastScrollY = window.scrollY;
-        console.log("Top of viewport Y position:", lastScrollY);
-      });
-    }
+    let lastScrollY = window.scrollY; // Capture the initial scroll position
+    setScrollY(lastScrollY); // Set the initial scroll position in state if needed
     let ticking = false;
 
+    // Set initial style for page load
+    if (layer2Ref.current) {
+      if (lastScrollY >= 0 && lastScrollY < 260) {
+        layer2Ref.current.style.position = "relative";
+        layer2Ref.current.style.transform = `translateY(${lastScrollY * -3}px)`;
+      }
+    }
+
+    // Set initial transforms and styles based on lastScrollY for page load
+    if (layer1Ref.current) {
+      layer1Ref.current.style.transform = `translateY(${lastScrollY * 3}px)`;
+    }
+
+    if (layer2Ref.current) {
+      if (lastScrollY >= 0 && lastScrollY < 260) {
+        layer2Ref.current.style.opacity = 0;
+        layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+        layer2Ref.current.style.top = "780px";
+        layer2Ref.current.style.transform = "translateY(0px)";
+        layer2Ref.current.style.position = "fixed";
+        layer2Ref.current.style.transform = `translateY(${lastScrollY * -3}px)`;
+        layer2Ref.current.style.opacity = 1;
+        layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+      } else if (lastScrollY >= 260 && lastScrollY < 840) {
+        layer2Ref.current.style.opacity = 1;
+        layer2Ref.current.style.position = "fixed";
+        layer2Ref.current.style.top = `${screenWidth >= 1290 ? 780 : screenWidth < 1200 ? 810 : screenWidth < 1070 ? 820 : screenWidth < 650 ? 835 : 845}px`;
+        layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+      } else if (lastScrollY >= 840) {
+        layer2Ref.current.style.opacity = 0;
+        layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+      }
+    }
+
+    if (layer3Ref.current) {
+      layer3Ref.current.style.opacity = lastScrollY >= 320 && lastScrollY < 755 ? 1 : 0;
+      layer3Ref.current.style.transition = `opacity 0.3s ease-in-out`;
+    }
+
+    if (navRef.current) {
+      navRef.current.style.opacity = lastScrollY >= 260 ? 1 : 0;
+      navRef.current.style.transition = `opacity 1s ease-in-out`;
+    }
+
+    // Scroll event handler to update styles on scroll
     const handleScroll = () => {
+      lastScrollY = window.scrollY;
       setScrollY(lastScrollY);
+
       if (!ticking) {
         window.requestAnimationFrame(() => {
           if (layer1Ref.current) {
             layer1Ref.current.style.transform = `translateY(${lastScrollY * 3}px)`;
           }
 
-          if (layer2Ref.current && lastScrollY <= 0) {
-            layer2Ref.current.style.opacity = 0;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-            layer2Ref.current.style.top = "780px";
-            layer2Ref.current.style.transform = "translateY(0px)";
-            layer2Ref.current.style.position = "fixed";
-          } else if (layer2Ref.current && lastScrollY > 0 && lastScrollY < 260) {
-            layer2Ref.current.style.transform = `translateY(${lastScrollY * -3}px)`;
-            layer2Ref.current.style.opacity = 1;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY <= 260) {
-            layer2Ref.current.style.transform = `translateY(${lastScrollY * -3}px)`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 330) {
-            layer2Ref.current.style.opacity = 100;
-            layer2Ref.current.style.position = "fixed";
-            layer2Ref.current.style.top = `855px`;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 435) {
-            layer2Ref.current.style.opacity = 100;
-            layer2Ref.current.style.position = "fixed";
-            layer2Ref.current.style.top = `845px`;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 650) {
-            layer2Ref.current.style.opacity = 100;
-            layer2Ref.current.style.position = "fixed";
-            layer2Ref.current.style.top = `835px`;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 1070) {
-            layer2Ref.current.style.opacity = 100;
-            layer2Ref.current.style.position = "fixed";
-            layer2Ref.current.style.top = `820px`;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 1200) {
-            layer2Ref.current.style.opacity = 100;
-            layer2Ref.current.style.position = "fixed";
-            layer2Ref.current.style.top = `810px`;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 1290) {
-            layer2Ref.current.style.opacity = 100;
-            layer2Ref.current.style.position = "fixed";
-            layer2Ref.current.style.top = `810px`;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth >= 1290) {
-            layer2Ref.current.style.opacity = 100;
-            layer2Ref.current.style.position = "fixed";
-            layer2Ref.current.style.top = `780px`;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY >= 840) {
-            layer2Ref.current.style.opacity = 0;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          if (layer2Ref.current) {
+            if (lastScrollY >= 0 && lastScrollY < 260) {
+              layer2Ref.current.style.opacity = 0;
+              layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+              layer2Ref.current.style.top = "780px";
+              layer2Ref.current.style.transform = "translateY(0px)";
+              layer2Ref.current.style.position = "fixed";
+              layer2Ref.current.style.transform = `translateY(${lastScrollY * -3}px)`;
+              layer2Ref.current.style.opacity = 1;
+              layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+            } else if (lastScrollY > 260 && lastScrollY < 840) {
+              layer2Ref.current.style.opacity = 1;
+              layer2Ref.current.style.position = "fixed";
+              layer2Ref.current.style.top = `${screenWidth >= 1290 ? 780 : screenWidth < 1200 ? 810 : screenWidth < 1070 ? 820 : screenWidth < 650 ? 835 : 845}px`;
+              layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+            } else if (lastScrollY >= 840) {
+              layer2Ref.current.style.opacity = 0;
+              layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+            }
           }
 
-          // layer3Ref
-          if (layer3Ref.current && lastScrollY > 0 && lastScrollY >= 320 && lastScrollY < 755) {
-            layer3Ref.current.style.opacity = 1;
-            layer3Ref.current.style.transition = `opacity 0.3s ease-in-out`;
-          } else if (layer3Ref.current && lastScrollY < 320) {
-            layer3Ref.current.style.opacity = 0;
-            layer3Ref.current.style.transition = `opacity 0.3s ease-in-out`;
-          } else if (layer3Ref.current && lastScrollY >= 755) {
-            layer3Ref.current.style.opacity = 0;
+          if (layer3Ref.current) {
+            layer3Ref.current.style.opacity = lastScrollY >= 320 && lastScrollY < 755 ? 1 : 0;
             layer3Ref.current.style.transition = `opacity 0.3s ease-in-out`;
           }
-          if (navRef.current && lastScrollY <= 0) {
-            navRef.current.style.opacity = 0;
-          } else if (navRef.current && lastScrollY < 260) {
-            navRef.current.style.opacity = 0;
-          } else if (navRef.current && lastScrollY >= 260) {
-            navRef.current.style.opacity = 1;
+
+          if (navRef.current) {
+            navRef.current.style.opacity = lastScrollY >= 260 ? 1 : 0;
             navRef.current.style.transition = `opacity 1s ease-in-out`;
           }
 
@@ -200,6 +201,7 @@ export default function Index() {
       }
     };
 
+    // Add scroll event listener
     window.addEventListener("scroll", handleScroll);
 
     return () => window.removeEventListener("scroll", handleScroll);
@@ -215,6 +217,26 @@ export default function Index() {
     setScreenWidth(window.innerWidth);
 
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const [scrollTop, setScrollTop] = useState(0);
+
+  useEffect(() => {
+    // Function to update scroll position
+    const updateScrollPosition = () => {
+      setScrollTop(window.scrollY || document.documentElement.scrollTop);
+    };
+
+    // Check the initial scroll position on mount
+    updateScrollPosition();
+
+    // Add scroll event listener
+    window.addEventListener("scroll", updateScrollPosition);
+
+    // Clean up event listener on unmount
+    return () => {
+      window.removeEventListener("scroll", updateScrollPosition);
+    };
   }, []);
 
   return (
@@ -244,10 +266,10 @@ export default function Index() {
             </li>
           </ul>
         </nav>
-        <div className="fixed top-0 left-0 z-50">
-          <p className="opacity-0">scrolling: {scrollY}</p>
+        <div className="fixed top-0 left-0 z-50 bg-white">
+          <p className="opacity-100">scrolling: {scrollY}</p>
           <p className="opacity-0">screenWidth: {screenWidth}</p>
-          <p className="opacity-0">viewportHeight: {viewportHeight}</p>
+          <p className="opacity-100">scrollTop: {scrollTop}</p>
         </div>
         <div
           ref={layer1Ref}
@@ -362,53 +384,52 @@ export default function Index() {
             />
           )}
         </div>
-        <div className={`z-0 h-[1400px] w-full relative transition-transform duration-75 ease-in-out opacity-100 flex justify-center items-end`}>
-          <h1
-            ref={layer2Ref}
-            className={`font-bold p-0 m-0 text-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] justify-center items-center ${
-              screenWidth < 330
-                ? "text-[2.5rem]"
-                : screenWidth < 380
-                ? "text-[3rem]"
-                : screenWidth < 435
-                ? "text-[3.5rem]"
-                : screenWidth < 489
-                ? "text-[4rem]"
-                : screenWidth < 540
-                ? "text-[4.5rem]"
-                : screenWidth < 595
-                ? "text-[5rem]"
-                : screenWidth < 650
-                ? "text-[5.5rem]"
-                : screenWidth < 810
-                ? "text-[6rem]"
-                : screenWidth < 810
-                ? "text-[7rem]"
-                : screenWidth < 860
-                ? "text-[7.5rem]"
-                : screenWidth < 1070
-                ? "text-[8rem]"
-                : screenWidth < 1290
-                ? "text-[10rem]"
-                : screenWidth < 1490
-                ? "text-[12rem]"
-                : screenWidth < 1600
-                ? "text-[14rem]"
-                : "text-[15rem]"
-            }`}
-            style={{
-              background: "linear-gradient(170deg, #f9fafb, #e5e7eb, #9ca3af, #6b7280)",
-              color: "transparent",
-              WebkitBackgroundClip: "text",
-              transition: "all 0.5s ease-in-out",
-              position: "fixed",
-              opacity: 0,
-              top: "780px",
-            }}
-          >
-            Vivienda Nova
-          </h1>
-        </div>
+
+        <h1
+          ref={layer2Ref}
+          className={`font-bold p-0 mx-auto w-full text-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] justify-center items-center ${
+            screenWidth < 330
+              ? "text-[2.5rem]"
+              : screenWidth < 380
+              ? "text-[3rem]"
+              : screenWidth < 435
+              ? "text-[3.5rem]"
+              : screenWidth < 489
+              ? "text-[4rem]"
+              : screenWidth < 540
+              ? "text-[4.5rem]"
+              : screenWidth < 595
+              ? "text-[5rem]"
+              : screenWidth < 650
+              ? "text-[5.5rem]"
+              : screenWidth < 810
+              ? "text-[6rem]"
+              : screenWidth < 810
+              ? "text-[7rem]"
+              : screenWidth < 860
+              ? "text-[7.5rem]"
+              : screenWidth < 1070
+              ? "text-[8rem]"
+              : screenWidth < 1290
+              ? "text-[10rem]"
+              : screenWidth < 1490
+              ? "text-[12rem]"
+              : screenWidth < 1600
+              ? "text-[14rem]"
+              : "text-[15rem]"
+          }`}
+          style={{
+            background: "linear-gradient(170deg, #f9fafb, #e5e7eb, #9ca3af, #6b7280)",
+            color: "transparent",
+            WebkitBackgroundClip: "text",
+            transition: "all 0.5s ease-in-out",
+            opacity: 1,
+            textAlign: "center",
+          }}
+        >
+          Vivienda Nova
+        </h1>
+
         <div
           ref={layer3Ref}
           className={`fixed left-[50%] translate-x-[-50%] z-50  opacity-0 ${
