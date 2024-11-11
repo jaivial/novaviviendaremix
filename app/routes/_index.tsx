@@ -102,9 +102,6 @@ export default function Index() {
   }, []);
 
   useEffect(() => {
-    const targetPosition = 0; // Target position from the top in pixels
-    const scrollThreshold = 260; // Scroll position at which the element should reach targetPosition
-
     let lastScrollY = window.scrollY; // Capture the initial scroll position
     setScrollY(lastScrollY); // Set the initial scroll position in state if needed
     let ticking = false;
@@ -134,8 +131,8 @@ export default function Index() {
         layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
       } else if (lastScrollY >= 260 && lastScrollY < 840) {
         layer2Ref.current.style.opacity = 1;
-        layer2Ref.current.style.position = "fixed";
-        layer2Ref.current.style.top = `${screenWidth >= 1290 ? 780 : screenWidth < 1200 ? 810 : screenWidth < 1070 ? 820 : screenWidth < 650 ? 835 : 845}px`;
+        // layer2Ref.current.style.position = "fixed";
+        // layer2Ref.current.style.top = `${screenWidth >= 1290 ? 780 : screenWidth < 1200 ? 810 : screenWidth < 1070 ? 820 : screenWidth < 650 ? 835 : 845}px`;
         layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
       } else if (lastScrollY >= 840) {
         layer2Ref.current.style.opacity = 0;
@@ -176,8 +173,8 @@ export default function Index() {
               layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
             } else if (lastScrollY > 260 && lastScrollY < 840) {
               layer2Ref.current.style.opacity = 1;
-              layer2Ref.current.style.position = "fixed";
-              layer2Ref.current.style.top = `${screenWidth >= 1290 ? 780 : screenWidth < 1200 ? 810 : screenWidth < 1070 ? 820 : screenWidth < 650 ? 835 : 845}px`;
+              // layer2Ref.current.style.position = "fixed";
+              // layer2Ref.current.style.top = `${screenWidth >= 1290 ? 780 : screenWidth < 1200 ? 810 : screenWidth < 1070 ? 820 : screenWidth < 650 ? 835 : 845}px`;
               layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
             } else if (lastScrollY >= 840) {
               layer2Ref.current.style.opacity = 0;
@@ -425,6 +422,7 @@ export default function Index() {
             transition: "all 0.5s ease-in-out",
             opacity: 1,
             textAlign: "center",
+            marginTop: screenWidth < 330 ? "120px" : screenWidth < 380 ? "100px" : screenWidth < 435 ? "80px" : screenWidth < 1290 ? "50px" : "0",
           }}
         >
           Vivienda Nova
