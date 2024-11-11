@@ -108,13 +108,13 @@ export default function Index() {
           // layer3Ref
           if (layer3Ref.current && lastScrollY > 0 && lastScrollY >= 320 && lastScrollY < 755) {
             layer3Ref.current.style.opacity = 1;
-            layer3Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+            layer3Ref.current.style.transition = `opacity 0.3s ease-in-out`;
           } else if (layer3Ref.current && lastScrollY < 320) {
             layer3Ref.current.style.opacity = 0;
-            layer3Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+            layer3Ref.current.style.transition = `opacity 0.3s ease-in-out`;
           } else if (layer3Ref.current && lastScrollY >= 755) {
             layer3Ref.current.style.opacity = 0;
-            layer3Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+            layer3Ref.current.style.transition = `opacity 0.3s ease-in-out`;
           }
 
           if (navRef.current && lastScrollY < 260) {
@@ -260,6 +260,7 @@ export default function Index() {
               src="/background.png"
               alt="Background"
               style={{
+                transition: "transform 0.5s ease-in-out",
                 height: "auto",
                 margin: "0",
                 ...(screenWidth < 550
@@ -329,6 +330,7 @@ export default function Index() {
               background: "linear-gradient(170deg, #f9fafb, #e5e7eb, #9ca3af, #6b7280)",
               color: "transparent",
               WebkitBackgroundClip: "text",
+              transition: "all 0.5sease-in-out",
             }}
           >
             Vivienda Nova
