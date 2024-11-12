@@ -15,8 +15,7 @@ export const meta: MetaFunction = () => {
     },
   ];
 };
-
-export default function Index() {
+const Index: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -533,4 +532,6 @@ export default function Index() {
       <ServiciosList />
     </div>
   );
-}
+};
+
+export default Index;
