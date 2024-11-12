@@ -30,6 +30,27 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <ScrollRestoration />
         <Scripts />
       </body>
+      <footer className="bg-black text-gray-50 backdrop-blur-sm py-6">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div className="text-center md:text-left">
+              <p className="text-white text-lg font-semibold">Vivienda Nova</p>
+              <p className="text-gray-50 text-sm">© {new Date().getFullYear()} Todos los derechos reservados.</p>
+            </div>
+            <div className="flex space-x-4">
+              <a href="#" className="text-gray-50 md:hover:text-slate-900 md:cursor-pointer md:hover:bg-gray-100 p-2 rounded-xl">
+                Política de Privacidad
+              </a>
+              <a href="#" className="text-gray-50 md:hover:text-slate-900 md:cursor-pointer md:hover:bg-gray-100 p-2 rounded-xl">
+                Términos de Servicio
+              </a>
+              <a href="#" className="text-gray-50 md:hover:text-slate-900 md:cursor-pointer md:hover:bg-gray-100 p-2 rounded-xl">
+                Contacto
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </html>
   );
 }

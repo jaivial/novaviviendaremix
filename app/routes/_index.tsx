@@ -1,6 +1,7 @@
 import type { MetaFunction, LinksFunction } from "@remix-run/node";
 import { useEffect, useState, useRef } from "react";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
+import ServiciosList from "~/components/ServiciosList";
 
 export const meta: MetaFunction = () => {
   return [
@@ -16,6 +17,10 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [screenWidth, setScreenWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 0);
   const [viewportHeight, setViewportHeight] = useState(typeof window !== "undefined" ? window.innerHeight : 0);
   const [isH2Visible, setIsH2Visible] = useState(false);
@@ -525,6 +530,7 @@ export default function Index() {
           </div>
         </div>
       </div>
+      <ServiciosList />
     </div>
   );
 }
