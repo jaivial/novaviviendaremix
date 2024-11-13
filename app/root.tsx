@@ -1,6 +1,6 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
-
+import { NextUIProvider } from "@nextui-org/react";
 import "./tailwind.css";
 
 export const links: LinksFunction = () => [
@@ -26,9 +26,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body style={{ margin: 0, backgroundColor: "#000" }}>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
+        <NextUIProvider>
+          {children}
+          <ScrollRestoration />
+          <Scripts />
+        </NextUIProvider>
       </body>
       <footer className="bg-black text-gray-50 backdrop-blur-sm py-6">
         <div className="container mx-auto px-4">

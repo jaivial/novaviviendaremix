@@ -16,10 +16,13 @@ export const meta: MetaFunction = () => {
   ];
 };
 const Index: React.FC = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
 
+  useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, []);
   const [screenWidth, setScreenWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 0);
   const [viewportHeight, setViewportHeight] = useState(typeof window !== "undefined" ? window.innerHeight : 0);
   const [isH2Visible, setIsH2Visible] = useState(false);
@@ -529,7 +532,7 @@ const Index: React.FC = () => {
           </div>
         </div>
       </div>
-      <ServiciosList />
+      <ServiciosList screenWidth={screenWidth} />
     </div>
   );
 };
