@@ -274,10 +274,10 @@ const Index: React.FC = () => {
             </li>
           </ul>
         </nav>
-        <div className="fixed top-0 left-0 z-50 bg-white">
-          <p className="opacity-100">scrolling: {scrollY}</p>
+        <div className="fixed top-0 left-0 z-50">
+          <p className="opacity-0">scrolling: {scrollY}</p>
           <p className="opacity-0">screenWidth: {screenWidth}</p>
-          <p className="opacity-100">scrollTop: {scrollTop}</p>
+          <p className="opacity-0">scrollTop: {scrollTop}</p>
         </div>
         <div
           ref={layer1Ref}
