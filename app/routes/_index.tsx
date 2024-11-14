@@ -3,6 +3,10 @@ import { useEffect, useState, useRef } from "react";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import ServiciosList from "~/components/ServiciosList";
 
+import styles from "~/styles/index.css?url";
+
+export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
+
 export const meta: MetaFunction = () => {
   return [
     { title: "Nova Vivienda" },
@@ -437,11 +441,11 @@ const Index: React.FC = () => {
 
         <div
           ref={layer3Ref}
-          className={`fixed left-[50%] translate-x-[-50%] z-50  opacity-0 ${
+          className={`fixed left-[50%] translate-x-[-50%] z-[0]  opacity-0 ${
             screenWidth < 435 ? "w-[90%] top-[63%] translate-y-[-50%]" : screenWidth < 450 ? "w-[90%] top-[63%] translate-y-[-50%]" : screenWidth < 500 ? "w-[90%] top-[63%] translate-y-[-50%]" : screenWidth < 600 ? "w-[95%] top-[50%] translate-y-[-50%]" : screenWidth < 760 ? "w-[95%] top-[250px]" : screenWidth < 800 ? "top-[250px] w-[740px] " : "top-[330px] w-[780px]"
           }`}
         >
-          <h2 className={`font-sans text-gray-50 font-semibold ${screenWidth < 430 ? "text-2xl" : "text-3xl"} text-center`}>Una nueva forma de vender</h2>
+          <h2 className={`font-sans text-gray-50 font-semibold ${screenWidth < 430 ? "text-2xl" : "text-3xl"} text-center z-[5]`}>Una nueva forma de vender</h2>
           <img
             src={`${screenWidth < 500 ? "/iphone15v1.png" : "/imacMockup.png"}`}
             alt="imacMockup"
