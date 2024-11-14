@@ -1,6 +1,6 @@
 // app/components/ServiciosList.tsx
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, Tab } from "@nextui-org/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
@@ -278,6 +278,28 @@ const ServiciosList: React.FC<ServiciosListProps> = ({ screenWidth }) => {
   // --- STATES AND VARIABLES ---
   const [selectedTab, setSelectedTab] = useState<String>("Productividad");
   const [hoveredCardId, setHoveredCardId] = useState<Number | null>(null);
+  const [opacityArray, setOpacityArray] = useState<number[]>([]);
+
+  // --- FUNCTIONS ---
+  // function to gradually change to opacity-100 on those cards.selectedTab == selectedTab
+  useEffect(() => {
+    // Reset opacityArray when selectedTab changes
+    setOpacityArray([]);
+
+    // Find all cards that match the selectedTab
+    const matchingCards = cardsInfo.filter((card) => card.selectedTab === selectedTab);
+
+    // Define an async function to add card IDs with a delay
+    const addCardsWithDelay = async () => {
+      for (let i = 0; i < matchingCards.length; i++) {
+        await new Promise((resolve) => setTimeout(resolve, 300)); // Wait 200ms
+        setOpacityArray((prev) => [...prev, matchingCards[i].id]);
+      }
+    };
+
+    // Call the async function
+    addCardsWithDelay();
+  }, [selectedTab, cardsInfo]);
 
   return (
     <div className={`w-full flex flex-col justify-center items-center z-[10] pb-20`}>
@@ -307,10 +329,11 @@ const ServiciosList: React.FC<ServiciosListProps> = ({ screenWidth }) => {
               card.selectedTab === selectedTab && (
                 <>
                   <div
-                    className={`h-[700px] min-w-[450px] max-w-[450px] ${hoveredCardId === card.id ? card.bgColorHover : card.bgColor} flex flex-col justify-center items-center rounded-3xl border-[0.5px] border-gray-400 border-opacity-70 p-6 bg-opacity-30 backdrop-blur-md md:hover:cursor-pointer z-[50]`}
+                    className={`transition-all ease-in-out duration-[2000ms] h-[700px] min-w-[450px] max-w-[450px] ${opacityArray.includes(card.id) ? "opacity-100" : "opacity-0"} ${
+                      hoveredCardId === card.id ? card.bgColorHover : card.bgColor
+                    } flex flex-col justify-center items-center rounded-3xl border-[0.5px] border-gray-400 border-opacity-70 p-6 bg-opacity-30 backdrop-blur-md md:hover:cursor-pointer z-[50]`}
                     style={{
-                      ...(hoveredCardId === card.id ? Styles.mouseIn : Styles.mouseOut),
-                      transition: "transform 0.4s ease-in-out", // Smooth transition effect
+                      ...(hoveredCardId === card.id ? Styles.mouseIn : Styles.mouseOut), // Smooth transition effect
                     }}
                     onMouseEnter={() => setHoveredCardId(card.id)}
                     onMouseLeave={() => setHoveredCardId(null)}
