@@ -27,7 +27,7 @@ interface CardInfo {
 }
 
 // Declare objects
-const buttonsLabels: ButtonLabel[] = [{ label: "Productividad" }, { label: "Gestión" }, { label: "Organización" }, { label: "Clientes" }, { label: "Inmuebles" }];
+const buttonsLabels: ButtonLabel[] = [{ label: "Productividad" }, { label: "Gestión" }, { label: "Geolocalización" }, { label: "Clientes" }, { label: "Inmuebles" }];
 
 const cardsInfo: CardInfo[] = [
   {
@@ -104,7 +104,7 @@ const cardsInfo: CardInfo[] = [
     borderColor: "border-green-950",
     description: "Añade nuevos inmuebles a tu base de datos, asigna características y su geolocalización.",
     image: "/anyadeinmueble.jpg",
-    icon: "icon-park-outline:group",
+    icon: "bi:house-add-fill",
     selectedTab: "Gestión",
   },
   {
@@ -129,11 +129,154 @@ const cardsInfo: CardInfo[] = [
     icon: "ion:stats-chart",
     selectedTab: "Gestión",
   },
+  {
+    id: 10,
+    title: "Mapa",
+    bgColor: "bg-red-900",
+    bgColorHover: "bg-red-700",
+    borderColor: "border-red-950",
+    description: "Observa tus propiedades, gestiona zona, asigna asesores y ten el control total.",
+    image: "/mapa.jpg",
+    icon: "solar:map-linear",
+    selectedTab: "Geolocalización",
+  },
+  {
+    id: 11,
+    title: "Crea zonas",
+    bgColor: "bg-red-700",
+    bgColorHover: "bg-red-500",
+    borderColor: "border-red-950",
+    description: "Dibuja una zona en el mapa y asigna automáticamente todos los inmuebles.",
+    image: "/creazona.jpg",
+    icon: "codicon:git-pull-request-create",
+    selectedTab: "Geolocalización",
+  },
+  {
+    id: 12,
+    title: "Edita zonas",
+    bgColor: "bg-red-500",
+    bgColorHover: "bg-red-300",
+    borderColor: "border-red-950",
+    description: "Edita las coordenadas de tus zonas y reasigna automáticamente tus inmuebles.",
+    image: "/editazonas.jpg",
+    icon: "material-symbols-light:rebase-edit",
+    selectedTab: "Geolocalización",
+  },
+  {
+    id: 13,
+    title: "Optimizado",
+    bgColor: "bg-red-300",
+    bgColorHover: "bg-red-100",
+    borderColor: "border-red-950",
+    description: "Geolocalización por coordenadas automática de cada inmueble.",
+    image: "/automatico.jpg",
+    icon: "ic:outline-auto-fix-high",
+    selectedTab: "Geolocalización",
+  },
+  {
+    id: 14,
+    title: "Cartera de clientes",
+    bgColor: "bg-yellow-900",
+    bgColorHover: "bg-yellow-700",
+    borderColor: "border-yellow-950",
+    description: "Gestiona de forma organizada, intutitiva y profesional tu cartera de clientes.",
+    image: "/carteraclientes.jpg",
+    icon: "ion:people",
+    selectedTab: "Clientes",
+  },
+  {
+    id: 15,
+    title: "Crea clientes",
+    bgColor: "bg-yellow-700",
+    bgColorHover: "bg-yellow-500",
+    borderColor: "border-yellow-950",
+    description: "Añade clientes con información detallada y asócialos a inmuebles.",
+    image: "/nuevocliente.jpg",
+    icon: "icon-park-solid:people-plus-one",
+    selectedTab: "Clientes",
+  },
+  {
+    id: 16,
+    title: "Compradores",
+    bgColor: "bg-yellow-500",
+    bgColorHover: "bg-yellow-300",
+    borderColor: "border-yellow-950",
+    description: "Gestiona y visualiza con fácilidad los clientes que quieren comprar.",
+    image: "/pedidos.jpg",
+    icon: "material-symbols:sell",
+    selectedTab: "Clientes",
+  },
+  {
+    id: 17,
+    title: "Información",
+    bgColor: "bg-yellow-300",
+    bgColorHover: "bg-yellow-100",
+    borderColor: "border-yellow-950",
+    description: "Visualiza toda la información de tus clientes y los inmuebles asociados.",
+    image: "/infodetalle.jpg",
+    icon: "mdi:information",
+    selectedTab: "Clientes",
+  },
+  {
+    id: 17,
+    title: "Inmuebles",
+    bgColor: "bg-pink-900",
+    bgColorHover: "bg-pink-700",
+    borderColor: "border-pink-950",
+    description: "Información completa, detallada e individualizada de cada uno de tus inmuebles.",
+    image: "/inmueble1.jpg",
+    icon: "bi:house-fill",
+    selectedTab: "Inmuebles",
+  },
+  {
+    id: 18,
+    title: "Asocia Clientes",
+    bgColor: "bg-pink-700",
+    bgColorHover: "bg-pink-500",
+    borderColor: "border-pink-950",
+    description: "Asocia clientes con tus inmuebles y asigna un rol según su relación con la propiedad.",
+    image: "/inmueble2.jpg",
+    icon: "fa-solid:link",
+    selectedTab: "Inmuebles",
+  },
+  {
+    id: 19,
+    title: "Vende",
+    bgColor: "bg-pink-500",
+    bgColorHover: "bg-pink-300",
+    borderColor: "border-pink-950",
+    description: "Gestiona tu estrategia, sigue los pasos de venta y visualiza datos de la transacción.",
+    image: "/inmueble3.jpg",
+    icon: "tdesign:money",
+    selectedTab: "Inmuebles",
+  },
+  {
+    id: 20,
+    title: "Actividad",
+    bgColor: "bg-pink-400",
+    bgColorHover: "bg-pink-300",
+    borderColor: "border-pink-950",
+    description: "Censa la actividad de cada inmueble para no perder ni una oportunidad.",
+    image: "/inmueble4.jpg",
+    icon: "fluent:chat-16-regular",
+    selectedTab: "Inmuebles",
+  },
+  {
+    id: 21,
+    title: "Gestiona",
+    bgColor: "bg-pink-300",
+    bgColorHover: "bg-pink-100",
+    borderColor: "border-pink-950",
+    description: "Procesa los estados de venta de forma completa, profesional y personalizada para cada inmueble.",
+    image: "/inmueble5.jpg",
+    icon: "mingcute:settings-6-fill",
+    selectedTab: "Inmuebles",
+  },
 ];
 
 const ServiciosList: React.FC<ServiciosListProps> = ({ screenWidth }) => {
   // --- STATES AND VARIABLES ---
-  const [selectedTab, setSelectedTab] = useState<String>("Gestión");
+  const [selectedTab, setSelectedTab] = useState<String>("Productividad");
   const [hoveredCardId, setHoveredCardId] = useState<Number | null>(null);
 
   return (
