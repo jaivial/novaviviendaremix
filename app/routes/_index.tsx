@@ -2,7 +2,7 @@ import type { MetaFunction, LinksFunction } from "@remix-run/node";
 import { useEffect, useState, useRef } from "react";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import ServiciosList from "~/components/ServiciosList";
-
+import { useScreenWidth } from "~/ScreenWidthProvider";
 import styles from "~/styles/index.css?url";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
@@ -23,11 +23,10 @@ const Index: React.FC = () => {
   // useEffect(() => {
   //   window.scrollTo(0, 0);
   // }, []);
-
+  const { screenWidth } = useScreenWidth();
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
   }, []);
-  const [screenWidth, setScreenWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 0);
   const [viewportHeight, setViewportHeight] = useState(typeof window !== "undefined" ? window.innerHeight : 0);
   const [isH2Visible, setIsH2Visible] = useState(false);
   const [isH3Visible, setIsH3Visible] = useState(false);
@@ -213,18 +212,6 @@ const Index: React.FC = () => {
     window.addEventListener("scroll", handleScroll);
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const handleResize = () => setScreenWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-
-    // Set initial width in case of rehydration or client-side only
-    setScreenWidth(window.innerWidth);
-
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const [scrollTop, setScrollTop] = useState(0);
@@ -536,7 +523,7 @@ const Index: React.FC = () => {
           </div>
         </div>
       </div>
-      <ServiciosList screenWidth={screenWidth} />
+      <ServiciosList />
     </div>
   );
 };

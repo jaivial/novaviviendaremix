@@ -3,7 +3,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Tabs, Tab } from "@nextui-org/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
-
+import { useScreenWidth } from "~/ScreenWidthProvider";
 // --- INTERFACES ---
 // Props interface
 interface ServiciosListProps {
@@ -218,7 +218,7 @@ const cardsInfo: CardInfo[] = [
     selectedTab: "Clientes",
   },
   {
-    id: 17,
+    id: 18,
     title: "Inmuebles",
     bgColor: "bg-pink-900",
     bgColorHover: "bg-pink-700",
@@ -229,7 +229,7 @@ const cardsInfo: CardInfo[] = [
     selectedTab: "Inmuebles",
   },
   {
-    id: 18,
+    id: 19,
     title: "Asocia Clientes",
     bgColor: "bg-pink-700",
     bgColorHover: "bg-pink-500",
@@ -240,7 +240,7 @@ const cardsInfo: CardInfo[] = [
     selectedTab: "Inmuebles",
   },
   {
-    id: 19,
+    id: 20,
     title: "Vende",
     bgColor: "bg-pink-500",
     bgColorHover: "bg-pink-300",
@@ -251,7 +251,7 @@ const cardsInfo: CardInfo[] = [
     selectedTab: "Inmuebles",
   },
   {
-    id: 20,
+    id: 21,
     title: "Actividad",
     bgColor: "bg-pink-400",
     bgColorHover: "bg-pink-300",
@@ -262,7 +262,7 @@ const cardsInfo: CardInfo[] = [
     selectedTab: "Inmuebles",
   },
   {
-    id: 21,
+    id: 22,
     title: "Gestiona",
     bgColor: "bg-pink-300",
     bgColorHover: "bg-pink-100",
@@ -274,11 +274,12 @@ const cardsInfo: CardInfo[] = [
   },
 ];
 
-const ServiciosList: React.FC<ServiciosListProps> = ({ screenWidth }) => {
+const ServiciosList: React.FC<ServiciosListProps> = () => {
   // --- STATES AND VARIABLES ---
   const [selectedTab, setSelectedTab] = useState<String>("Productividad");
   const [hoveredCardId, setHoveredCardId] = useState<Number | null>(null);
   const [opacityArray, setOpacityArray] = useState<number[]>([]);
+  const { screenWidth } = useScreenWidth();
 
   // --- FUNCTIONS ---
   // function to gradually change to opacity-100 on those cards.selectedTab == selectedTab
