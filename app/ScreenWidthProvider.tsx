@@ -1,6 +1,7 @@
-import React, { useContext, createContext, useState, useEffect } from "react";
+// app/ScreenWidthProvider.tsx
+import React, { useContext, createContext, useEffect, useState } from "react";
 
-// Define the screen width context type
+// Define the context types
 interface ScreenWidthContextType {
   screenWidth: number;
 }
@@ -12,18 +13,19 @@ const ScreenWidthContext = createContext<ScreenWidthContextType | undefined>(und
 export const ScreenWidthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [screenWidth, setScreenWidth] = useState<number>(0);
 
+  // useEffect to track window width
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     const handleResize = () => setScreenWidth(window.innerWidth);
 
-    // Add the event listener to handle resize
+    // Add event listener to track width
     window.addEventListener("resize", handleResize);
 
-    // Set the initial screen width
+    // Set initial screen width
     setScreenWidth(window.innerWidth);
 
-    // Define the clean-up function
+    // Define clean-up function
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -32,11 +34,11 @@ export const ScreenWidthProvider: React.FC<{ children: React.ReactNode }> = ({ c
   return <ScreenWidthContext.Provider value={{ screenWidth }}>{children}</ScreenWidthContext.Provider>;
 };
 
-// Create a custom hook for better consumption
+// Create custom hook to ease consumption
 export const useScreenWidth = () => {
   const context = useContext(ScreenWidthContext);
   if (!context) {
-    throw console.error("useScreenWidth has to be within a screenWidthContextProvider");
+    throw console.error("useScreenWidth hook has to be used within a used within a ScreenWidthContext provider");
   }
   return context;
 };

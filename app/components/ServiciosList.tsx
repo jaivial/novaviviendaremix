@@ -274,7 +274,7 @@ const cardsInfo: CardInfo[] = [
   },
 ];
 
-const ServiciosList: React.FC<ServiciosListProps> = () => {
+const ServiciosList: React.FC = () => {
   // --- STATES AND VARIABLES ---
   const [selectedTab, setSelectedTab] = useState<String>("Productividad");
   const [hoveredCardId, setHoveredCardId] = useState<Number | null>(null);

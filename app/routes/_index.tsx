@@ -2,8 +2,11 @@ import type { MetaFunction, LinksFunction } from "@remix-run/node";
 import { useEffect, useState, useRef } from "react";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import ServiciosList from "~/components/ServiciosList";
-import { useScreenWidth } from "~/ScreenWidthProvider";
 import styles from "~/styles/index.css?url";
+import { useScreenWidth } from "~/ScreenWidthProvider";
+import { ComponentsContextProvider } from "~/ComponentsContext";
+import Component1 from "~/components/Component1";
+import Component2 from "~/components/Component2";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
@@ -524,6 +527,12 @@ const Index: React.FC = () => {
         </div>
       </div>
       <ServiciosList />
+      <ComponentsContextProvider>
+        <div className="w-full flex flex-row justify-center items-center">
+          <Component1 />
+          <Component2 />
+        </div>
+      </ComponentsContextProvider>
     </div>
   );
 };
