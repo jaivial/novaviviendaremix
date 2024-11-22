@@ -7,6 +7,7 @@ import { useScreenWidth } from "~/ScreenWidthProvider";
 import { ComponentsContextProvider } from "~/ComponentsContext";
 import Component1 from "~/components/Component1";
 import Component2 from "~/components/Component2";
+import ReducerComponent from "~/components/ReducerComponent";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
@@ -533,6 +534,7 @@ const Index: React.FC = () => {
           <Component2 />
         </div>
       </ComponentsContextProvider>
+      <ReducerComponent />
     </div>
   );
 };
