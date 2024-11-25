@@ -7,6 +7,7 @@ import { useScreenWidth } from "~/ScreenWidthProvider";
 import IndexComponents2 from "~/components/IndexComponent2";
 import IndexComponent3 from "~/components/IndexComponent3";
 import IndexComponent4 from "~/components/IndexComponent4";
+import IndexComponent5 from "~/components/IndexComponent5";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
@@ -527,6 +528,7 @@ const Index: React.FC = () => {
       <IndexComponents2 />
       <IndexComponent3 />
       <IndexComponent4 />
+      <IndexComponent5 />
     </div>
   );
 };
