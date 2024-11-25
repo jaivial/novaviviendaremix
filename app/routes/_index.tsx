@@ -5,6 +5,7 @@ import ServiciosList from "~/components/ServiciosList";
 import styles from "~/styles/index.css?url";
 import { useScreenWidth } from "~/ScreenWidthProvider";
 import IndexComponents2 from "~/components/IndexComponent2";
+import IndexComponent3 from "~/components/IndexComponent3";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
@@ -523,6 +524,7 @@ const Index: React.FC = () => {
       </div>
       <ServiciosList />
       <IndexComponents2 />
+      <IndexComponent3 />
     </div>
   );
 };
