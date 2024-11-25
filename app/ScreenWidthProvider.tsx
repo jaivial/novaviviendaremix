@@ -1,7 +1,9 @@
 // app/ScreenWidthProvider.tsx
-import React, { useContext, createContext, useEffect, useState } from "react";
 
-// Define the context types
+import React, { useState, useContext, createContext, useEffect } from "react";
+
+// --- INTERFACE ---
+// Define the types of the context
 interface ScreenWidthContextType {
   screenWidth: number;
 }
@@ -10,22 +12,22 @@ interface ScreenWidthContextType {
 const ScreenWidthContext = createContext<ScreenWidthContextType | undefined>(undefined);
 
 // Create the provider
-export const ScreenWidthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const ScreenWidthContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [screenWidth, setScreenWidth] = useState<number>(0);
 
-  // useEffect to track window width
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === undefined) return;
 
+    // Create function handle resize
     const handleResize = () => setScreenWidth(window.innerWidth);
 
-    // Add event listener to track width
+    // Add the event listener
     window.addEventListener("resize", handleResize);
 
-    // Set initial screen width
+    // Set the intial screen width
     setScreenWidth(window.innerWidth);
 
-    // Define clean-up function
+    // Defne a clean-up function
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -34,11 +36,11 @@ export const ScreenWidthProvider: React.FC<{ children: React.ReactNode }> = ({ c
   return <ScreenWidthContext.Provider value={{ screenWidth }}>{children}</ScreenWidthContext.Provider>;
 };
 
-// Create custom hook to ease consumption
+// --- CUSTOM HOOK ---
 export const useScreenWidth = () => {
   const context = useContext(ScreenWidthContext);
   if (!context) {
-    throw console.error("useScreenWidth hook has to be used within a used within a ScreenWidthContext provider");
+    throw new Error("useScreenWidth must be used within a ScreenWidthContext Provider");
   }
   return context;
 };

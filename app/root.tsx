@@ -2,7 +2,7 @@ import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/reac
 import type { LinksFunction } from "@remix-run/node";
 import { NextUIProvider } from "@nextui-org/react";
 import "./tailwind.css";
-import { ScreenWidthProvider } from "./ScreenWidthProvider";
+import { ScreenWidthContextProvider } from "~/ScreenWidthProvider";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -26,16 +26,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body style={{ margin: 0, backgroundColor: "#000" }}>
-        <ScreenWidthProvider>
+      <body style={{ margin: 0, backgroundColor: "#000", height: "auto", overflowX: "hidden" }}>
+        <ScreenWidthContextProvider>
           <NextUIProvider>
             {children}
             <ScrollRestoration />
             <Scripts />
           </NextUIProvider>
-        </ScreenWidthProvider>
+        </ScreenWidthContextProvider>
       </body>
-      <footer className="bg-black text-gray-50 backdrop-blur-sm py-6">
+      <footer className="bg-black text-gray-50 backdrop-blur-sm py-6 pt-24">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-center md:text-left">

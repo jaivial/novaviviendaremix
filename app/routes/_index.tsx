@@ -4,10 +4,7 @@ import { Parallax, ParallaxLayer } from "@react-spring/parallax";
 import ServiciosList from "~/components/ServiciosList";
 import styles from "~/styles/index.css?url";
 import { useScreenWidth } from "~/ScreenWidthProvider";
-import { ComponentsContextProvider } from "~/ComponentsContext";
-import Component1 from "~/components/Component1";
-import Component2 from "~/components/Component2";
-import ReducerComponent from "~/components/ReducerComponent";
+import IndexComponents2 from "~/components/IndexComponent2";
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
@@ -24,10 +21,6 @@ export const meta: MetaFunction = () => {
   ];
 };
 const Index: React.FC = () => {
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, []);
-  const { screenWidth } = useScreenWidth();
   useEffect(() => {
     window.scrollTo(0, document.body.scrollHeight);
   }, []);
@@ -45,6 +38,7 @@ const Index: React.FC = () => {
   const layer3Ref = useRef(null);
   const navRef = useRef(null);
   const [scrollY, setScrollY] = useState(0);
+  const { screenWidth } = useScreenWidth();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -528,13 +522,7 @@ const Index: React.FC = () => {
         </div>
       </div>
       <ServiciosList />
-      <ComponentsContextProvider>
-        <div className="w-full flex flex-row justify-center items-center">
-          <Component1 />
-          <Component2 />
-        </div>
-      </ComponentsContextProvider>
-      <ReducerComponent />
+      <IndexComponents2 />
     </div>
   );
 };
