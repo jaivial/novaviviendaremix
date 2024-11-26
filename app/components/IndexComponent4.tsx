@@ -49,8 +49,8 @@ const IndexComponent4: React.FC = () => {
           <h2 className={`font-sans font-bold text-gray-50 text-center ${screenWidth < 400 ? "text-3xl" : "text-4xl"} mb-4 ${isH2Visible ? "opacity-100" : "opacity-0"} transition-opacity ease-in-out duration-[1500ms]`}>Organiza por zonas.</h2>
           <h3 className={`text-gray-300 font-sans ${screenWidth < 400 ? "text-2xl" : "text-3xl"} font-bold text-center mb-6 ${isH3Visible ? "opacity-100" : "opacity-0"} transition-opacity ease-in-out duration-[1500ms]`}>Crea áreas en el mapa y asigna inmuebles automáticamente.</h3>
 
-          <p className={`${screenWidth < 900 ? "text-base" : " text-lg"} w-[60%] mx-auto font-sans font-medium text-gray-400 text-center ${isPVisible ? "opacity-100" : "opacity-0"} transition-opacity ease-in-out duration-[1500ms]`}>
-            <strong className="text-white">Crea nuevos clientes.</strong> Con tan solo un click añade clientes a tu cartera y asigna inmuebles de tu base de datos a cada registro.
+          <p className={`${screenWidth < 650 ? "text-base w-[80%]" : screenWidth < 900 ? "text-base w-[60%]" : " text-lg w-[60%]"}  mx-auto font-sans font-medium text-gray-400 text-center ${isPVisible ? "opacity-100" : "opacity-0"} transition-opacity ease-in-out duration-[1500ms]`}>
+            <strong className="text-white">Dibuja zonas.</strong> En cada zona se asignarán automáticamente el nombre de la zona y el responsable elegidos mediante geolocalización de coordenadas.
           </p>
         </div>
         <div className="relative w-full h-auto flex flex-row justify-center items-center">

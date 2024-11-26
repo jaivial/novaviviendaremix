@@ -168,9 +168,9 @@ const IndexComponent5: React.FC = () => {
           ref={centerCard}
           className={`rounded-3xl border border-slate-100 py-6 border-opacity-30 ${
             cardCenterVisible && screenWidth < 900
-              ? "w-full h-[800px] duration-[1000ms] opacity-100 px-4 max-w-[400px]"
+              ? "w-full h-[700px] duration-[1000ms] opacity-100 px-4 max-w-[400px]"
               : !cardCenterVisible && screenWidth < 900
-              ? "w-0 h-[800px] max-w-[400px] opacity-0 duration-[500ms]"
+              ? "w-0 h-[700px] max-w-[400px] opacity-0 duration-[500ms]"
               : cardCenterVisible && screenWidth >= 900
               ? "w-[40%] h-[800px] px-8 duration-[1500ms]"
               : !cardCenterVisible && screenWidth >= 900
@@ -311,9 +311,9 @@ const IndexComponent5: React.FC = () => {
           }}
           className={`${
             cardCenterVisible && screenWidth < 900
-              ? "opacity-100 w-[100%] duration-[1500ms] max-h-[820px] max-w-[420px]"
+              ? "opacity-100 w-[100%] duration-[1000ms] max-h-[720px] max-w-[420px]"
               : !cardCenterVisible && screenWidth < 900
-              ? "opacity-0 w-0 duration-[1000ms]"
+              ? "opacity-0 w-0 duration-[500ms]"
               : cardCenterVisible && screenWidth >= 900
               ? "w-[36%] opacity-100 duration-[1500ms]"
               : !cardCenterVisible && screenWidth >= 900
