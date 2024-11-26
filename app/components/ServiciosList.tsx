@@ -326,9 +326,9 @@ const ServiciosList: React.FC = () => {
       </div>
       <div className="relative w-full h-auto">
         {/* right scroll shadow */}
-        <div className="bg-gradient-to-r from-black to bg-transparent absolute top-0 left-0 w-[30%] blur-md -ml-[15px] h-full z-[60] pointer-events-none"></div>
+        <div className="bg-gradient-to-r from-black to bg-transparent absolute top-0 left-0 w-[30%] h-full z-[60] pointer-events-none"></div>
         {/* left scroll shadow */}
-        <div className="bg-gradient-to-l from-black to bg-transparent absolute top-0 right-0 w-[30%] blur-md -mr-[15px]  h-full z-[60] pointer-events-none"></div>
+        <div className="bg-gradient-to-l from-black to bg-transparent absolute top-0 right-0 w-[30%] h-full z-[60] pointer-events-none"></div>
         <div className={`${screenWidth < 600 ? "pl-[5rem]" : screenWidth < 700 ? "pl-[8rem]" : screenWidth < 1350 ? "pl-[12rem]" : "pl-[20rem]"} pr-[30rem] flex flex-row gap-20 mt-12 overflow-scroll max-w-[100%] relative`}>
           {cardsInfo.map(
             (card) =>

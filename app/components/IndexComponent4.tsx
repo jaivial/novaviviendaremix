@@ -53,19 +53,19 @@ const IndexComponent4: React.FC = () => {
             <strong className="text-white">Crea nuevos clientes.</strong> Con tan solo un click añade clientes a tu cartera y asigna inmuebles de tu base de datos a cada registro.
           </p>
         </div>
+        <div className="relative w-full h-auto flex flex-row justify-center items-center">
+          {/* Gradient Overlay */}
+          <div className="absolute bg-gradient-to-b from-transparent to-black top-0 left-0 w-full h-full z-[30]"></div>
 
-        {/*  */}
-        <div className={`bg-slate-500 bg-opacity-30 flex flex-col justify-center items-center backdrop-blur-lg h-auto ${isImgVisible ? "opacity-100" : "opacity-0"} transition-opacity ease-in-out duration-[1500ms]  ${screenWidth < 1080 ? "w-[95%]" : "w-full"} max-w-[1024px] rounded-xl border border-white border-opacity-50 mt-10 p-2 relative z-[10]`}>
-          <div className="rounded-lg w-full h-full bg-black border border-white border-opacity-50">
-            <video autoPlay loop muted playsInline className="rounded-lg">
-              <source src="/indexcomponent4.webm" type="video/webm" />
-              Tu navegador no soporta este formato de vídeo.
-            </video>
+          {/*  */}
+          <div className={`bg-slate-500 bg-opacity-30 flex flex-col justify-center items-center backdrop-blur-lg h-auto ${isImgVisible ? "opacity-100" : "opacity-0"} transition-opacity ease-in-out duration-[1500ms]  ${screenWidth < 1080 ? "w-[95%]" : "w-full"} max-w-[1024px] rounded-xl border border-white border-opacity-50 mt-10 p-2 relative z-[10]`}>
+            <div className="rounded-lg w-full h-full bg-black border border-white border-opacity-50">
+              <video autoPlay loop muted playsInline className="rounded-lg">
+                <source src="/indexcomponent4.webm" type="video/webm" />
+                Tu navegador no soporta este formato de vídeo.
+              </video>
+            </div>
           </div>
-        </div>
-        <div className={`w-full h-auto flex flex-col items-center justify-center relative`}>
-          {/* absolute div to create shadow like from the bottom */}
-          <div className={`absolute bg-black mx-auto  h-[500px] w-[200%] z-[30] ${screenWidth < 380 ? "-top-[7rem] blur-[2rem]" : screenWidth < 420 ? "-top-[8rem] blur-[2rem]" : screenWidth < 500 ? "-top-[9rem] blur-[2rem]" : screenWidth < 650 ? "-top-[12rem] blur-[2rem]" : screenWidth < 700 ? "-top-[13rem] blur-[4rem]" : "-top-[17rem] blur-[4rem]"}`}></div>
         </div>
       </div>
     </div>

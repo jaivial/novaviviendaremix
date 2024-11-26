@@ -166,7 +166,7 @@ const IndexComponent5: React.FC = () => {
         {/* center card */}
         <div
           ref={centerCard}
-          className={`rounded-3xl border border-slate-100 py-6  border-opacity-30 ${
+          className={`rounded-3xl border border-slate-100 py-6 border-opacity-30 ${
             cardCenterVisible && screenWidth < 900
               ? "w-full h-[800px] duration-[1000ms] opacity-100 px-4 max-w-[400px]"
               : !cardCenterVisible && screenWidth < 900
@@ -176,7 +176,7 @@ const IndexComponent5: React.FC = () => {
               : !cardCenterVisible && screenWidth >= 900
               ? "w-[100%] h-[950px] px-8 duration-[1500ms]"
               : ""
-          } transition-all ease-in-out  relative bg-black bg-opacity-90 z-[30] flex flex-col justify-start items-center`}
+          } transition-all ease-in-out relative bg-black bg-opacity-100 z-[30] flex flex-col justify-start items-center`}
         >
           <div className="w-full min-h-[220px] border-b border-slate-100 border-opacity-25 flex flex-col justify-around items-start">
             <div
@@ -304,9 +304,22 @@ const IndexComponent5: React.FC = () => {
         </div>
 
         <div
+          style={{
+            filter: "blur(20px)",
+            WebkitFilter: "blur(20px)", // For Safari
+            transform: "translateZ(0) translate(-50%, -50%)",
+          }}
           className={`${
-            cardCenterVisible && screenWidth < 900 ? "opacity-100 w-[105%] duration-[1500ms] max-w-[420px]" : !cardCenterVisible && screenWidth < 900 ? "opacity-0 w-0 duration-[0ms]" : cardCenterVisible && screenWidth >= 900 ? "w-[39.25%] opacity-100 duration-[1500ms]" : !cardCenterVisible && screenWidth >= 900 ? "opacity-0 w-[80%] duration-[0ms]" : ""
-          } transition-all ease-in-out   h-[820px] bg-blue-300 bg-opacity-30 blur-lg absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-[10]`}
+            cardCenterVisible && screenWidth < 900
+              ? "opacity-100 w-[100%] duration-[1500ms] max-h-[820px] max-w-[420px]"
+              : !cardCenterVisible && screenWidth < 900
+              ? "opacity-0 w-0 duration-[1000ms]"
+              : cardCenterVisible && screenWidth >= 900
+              ? "w-[36%] opacity-100 duration-[1500ms]"
+              : !cardCenterVisible && screenWidth >= 900
+              ? "opacity-0 w-[80%] duration-[0ms]"
+              : "opacity-0 w-full duration-0"
+          } transition-all ease-in-out h-[800px] bg-blue-300 absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 rounded-xl z-[10]`}
         ></div>
       </div>
       <div className="w-fit h-auto flex flex-row items-center justify-center group hover:border-slate-100 border border-black rounded-xl py-2 px-3 hover:cursor-pointer transition-all ease-in-out duration-[600ms]">
