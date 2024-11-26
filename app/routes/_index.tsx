@@ -25,8 +25,9 @@ export const meta: MetaFunction = () => {
 };
 const Index: React.FC = () => {
   useEffect(() => {
-    window.scrollTo(0, document.body.scrollHeight);
+    window.scrollTo(0, 0);
   }, []);
+
   const [viewportHeight, setViewportHeight] = useState(typeof window !== "undefined" ? window.innerHeight : 0);
   const [isH2Visible, setIsH2Visible] = useState(false);
   const [isH3Visible, setIsH3Visible] = useState(false);
@@ -249,7 +250,7 @@ const Index: React.FC = () => {
           height: "1700px",
         }}
       >
-        <nav ref={navRef} className="fixed top-0 left-0 right-0 px-16 w-fit mx-auto mt-3 rounded-xl py-auto z-[99] backdrop-blur-sm bg-gray-950 bg-opacity-50 opacity-0 flex flex-col justify-center items-center border-[0.9px] border-gray-400 border-opacity-50">
+        <nav ref={navRef} className={`fixed top-0 left-0 right-0 ${screenWidth < 450 ? "w-[95%] px-0 flex flex-row justify-center items-center" : "w-fit px-16"} mx-auto mt-3 rounded-xl py-auto z-[99] backdrop-blur-sm bg-gray-950 bg-opacity-50 opacity-0 flex flex-col justify-center items-center border-[0.9px] border-gray-400 border-opacity-50`}>
           <ul className="flex justify-center items-center w-fit px-8 mx-auto gap-8 text-gray-200 pt-4 text-sans font-medium pb-4 z-[99]">
             <li>
               <a href="/">Inicio</a>
@@ -297,38 +298,38 @@ const Index: React.FC = () => {
                 margin: "0",
                 ...(screenWidth < 300
                   ? {
-                      maxWidth: "215%",
-                      width: "215%",
+                      maxWidth: "145%",
+                      width: "145%",
                       transform: "translateX(-30px)",
                     }
                   : screenWidth < 330
                   ? {
-                      maxWidth: "200%",
-                      width: "200%",
+                      maxWidth: "140%",
+                      width: "140%",
                       transform: "translateX(-20px)",
                     }
                   : screenWidth < 350
                   ? {
-                      maxWidth: "200%",
-                      width: "200%",
+                      maxWidth: "135%",
+                      width: "135%",
                       transform: "translateX(-20px)",
                     }
                   : screenWidth < 370
                   ? {
-                      maxWidth: "200%",
-                      width: "200%",
+                      maxWidth: "130%",
+                      width: "130%",
                       transform: "translateX(-20px)",
                     }
                   : screenWidth < 385
                   ? {
-                      maxWidth: "200%",
-                      width: "200%",
+                      maxWidth: "130%",
+                      width: "130%",
                       transform: "translateX(-20px)",
                     }
                   : screenWidth < 400
                   ? {
-                      maxWidth: "190%",
-                      width: "190%",
+                      maxWidth: "120%",
+                      width: "120%",
                       transform: "translateX(-20px)",
                     }
                   : screenWidth < 450

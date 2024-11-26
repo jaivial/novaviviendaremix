@@ -303,13 +303,16 @@ const ServiciosList: React.FC = () => {
     addCardsWithDelay();
   }, [selectedTab, cardsInfo]);
 
+  //  <h2 className={`font-sans font-bold text-gray-50 text-center ${screenWidth < 400 ? "text-3xl" : "text-4xl"} mb-4 transition-opacity ease-in-out duration-[1500ms]`}>Empieza ya.</h2>
+  // <h3 className={`text-gray-300 font-sans ${screenWidth < 400 ? "text-2xl" : "text-3xl"} font-bold text-center mb-6 transition-opacity ease-in-out duration-[1500ms]`}>Haz que tus ventas suban gracias al trabajo organizado.</h3>
+
   return (
-    <div className={`w-full flex flex-col justify-center items-center z-[10] pb-20 overflow-x-hidden`}>
+    <div className={`w-full flex flex-col justify-center items-center z-[10] pb-20 overflow-x-hidden mt-20`}>
       <div className={`w-[95%] h-auto flex ${screenWidth < 1350 ? "flex-col gap-6" : "flex-row"} justify-between items-center`}>
         <div className={`${screenWidth < 1350 ? "w-[95%]" : "w-1/2"} flex-row items-center justify-center`}>
           <div className={`h-fit w-fit flex flex-col justify-center ${screenWidth < 1350 ? "items-center" : "items-start"}  mx-auto gap-3`}>
-            <h2 className={`text-white font-sans text-4xl font-bold ${screenWidth < 1350 ? "text-center" : ""}`}>Una función para cada necesidad</h2>
-            <h3 className={`text-gray-300 font-sans text-3xl font-bold  ${screenWidth < 1350 ? "text-center" : ""}`}>Todas las soluciones que necesitas en una aplicación</h3>
+            <h2 className={`text-white font-sans font-bold ${screenWidth < 400 ? "text-3xl" : "text-4xl"} ${screenWidth < 1350 ? "text-center" : screenWidth < 1350 ? "text-center" : ""}`}>Una función para cada necesidad</h2>
+            <h3 className={`text-gray-300 font-sans font-bold ${screenWidth < 400 ? "text-2xl" : "text-3xl"} ${screenWidth < 1350 ? "text-center" : ""}`}>Todas las soluciones que necesitas en una aplicación</h3>
           </div>
         </div>
 
@@ -323,16 +326,16 @@ const ServiciosList: React.FC = () => {
       </div>
       <div className="relative w-full h-auto">
         {/* right scroll shadow */}
-        <div className="bg-gradient-to-r from-black to bg-transparent absolute top-0 left-0 w-1/4 h-full z-[60] pointer-events-none"></div>
+        <div className="bg-gradient-to-r from-black to bg-transparent absolute top-0 left-0 w-[30%] blur-md -ml-[15px] h-full z-[60] pointer-events-none"></div>
         {/* left scroll shadow */}
-        <div className="bg-gradient-to-l from-black to bg-transparent absolute top-0 right-0 w-1/4 h-full z-[60] pointer-events-none"></div>
+        <div className="bg-gradient-to-l from-black to bg-transparent absolute top-0 right-0 w-[30%] blur-md -mr-[15px]  h-full z-[60] pointer-events-none"></div>
         <div className={`${screenWidth < 600 ? "pl-[5rem]" : screenWidth < 700 ? "pl-[8rem]" : screenWidth < 1350 ? "pl-[12rem]" : "pl-[20rem]"} pr-[30rem] flex flex-row gap-20 mt-12 overflow-scroll max-w-[100%] relative`}>
           {cardsInfo.map(
             (card) =>
               card.selectedTab === selectedTab && (
                 <>
                   <div
-                    className={`transition-all ease-in-out duration-[2000ms] h-[700px]  ${screenWidth < 480 ? "min-w-[400px] max-w-[400px]" : "min-w-[450px] max-w-[450px]"} ${opacityArray.includes(card.id) ? "opacity-100" : "opacity-0"} ${
+                    className={`transition-all ease-in-out duration-[2000ms] h-[700px]  ${screenWidth < 480 ? "min-w-[350px] max-w-[350px]" : "min-w-[450px] max-w-[450px]"} ${opacityArray.includes(card.id) ? "opacity-100" : "opacity-0"} ${
                       hoveredCardId === card.id ? card.bgColorHover : card.bgColor
                     } flex flex-col justify-center items-center rounded-3xl border-[0.5px] border-gray-400 border-opacity-70 p-6 bg-opacity-30 backdrop-blur-md md:hover:cursor-pointer z-[50]`}
                     style={{
