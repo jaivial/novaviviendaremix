@@ -28,7 +28,7 @@ const IndexComponent3: React.FC = () => {
           }
         });
       },
-      { threshold: 0.7 }
+      { threshold: 0.5 }
     );
 
     if (sectionRef.current) {
@@ -43,11 +43,11 @@ const IndexComponent3: React.FC = () => {
   }, []);
 
   return (
-    <div className={`max-w-[1100px]  ${screenWidth < 1100 ? "w-[95%]" : "w-full"} h-auto flex ${screenWidth < 900 ? "flex-col pt-20" : "flex-row pt-40"} justify-center items-center mx-auto relative`}>
+    <div className={`max-w-[1100px]  ${screenWidth < 1100 ? "w-[95%]" : "w-full"} h-auto flex ${screenWidth < 900 ? "flex-col pt-10" : "flex-row pt-30"} justify-center items-center mx-auto relative`}>
       <div ref={sectionRef} className={`w-full h-auto flex ${screenWidth < 900 ? "flex-col items-center" : "flex-row items-start"} justify-center`}>
         {/*  */}
-        <div className={` h-fit flex flex-col justify-center items-center ${screenWidth < 900 ? "relative w-full" : "w-2/3"} ${isImgVisible ? "opacity-100" : "opacity-0"} transition-opacity ease-in-out duration-[1500ms]`}>
-          <img src="/iphonerocks2.png" alt="Vivienda Nova CRM inmobiliarias. Organiza tareas, todo app, calendario de tareas, objetivos diarios." className="w-auto h-full" />
+        <div className={`h-auto flex flex-col justify-center items-center ${screenWidth < 900 ? "relative w-full" : "w-2/3"} ${isImgVisible ? "opacity-100" : "opacity-0"} transition-opacity ease-in-out duration-[1500ms]`}>
+          <img src="/iphonerocks2.png" alt="Vivienda Nova CRM inmobiliarias. Organiza tareas, todo app, calendario de tareas, objetivos diarios." className="w-auto h-auto" />
           <div
             className={`absolute bg-black mx-auto h-[100px] ${screenWidth < 900 ? "w-full" : "w-[110%]"} z-[30] ${
               screenWidth < 380 ? "-bottom-[5.5rem] blur-[1rem]" : screenWidth < 420 ? "-bottom-[5rem] blur-[1rem]" : screenWidth < 500 ? "-bottom-[4.5rem] blur-[1rem]" : screenWidth < 650 ? "-bottom-[4.5rem] blur-[1rem]" : screenWidth < 700 ? "-bottom-[4.5rem] blur-[1rem]" : screenWidth < 900 ? "-bottom-[5rem] blur-[1rem]" : "-bottom-[3rem] blur-[1rem]"
