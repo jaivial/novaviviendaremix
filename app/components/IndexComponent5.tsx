@@ -115,22 +115,24 @@ const IndexComponent5: React.FC = () => {
         {/* left card */}
         <div
           ref={leftCard}
-          className={`${cardLeftVisible && screenWidth < 900 ? "w-full border px-4" : cardLeftVisible && screenWidth >= 900 ? "w-1/3 border border-r-0 rounded-tr-none rounded-br-none px-8" : "w-0 border-none px-8"}  py-6 transition-all ease-in-out duration-[1500ms] rounded-3xl border-slate-100 border-opacity-30 h-[700px] flex flex-col justify-start items-center`}
+          className={`${
+            cardLeftVisible && screenWidth < 900 ? "w-full border px-4 duration-[1000ms] max-w-[400px]" : cardLeftVisible && screenWidth >= 900 ? "w-1/3 border border-r-0 rounded-tr-none rounded-br-none px-8 duration-[1500ms]" : "w-0 border-none px-8 duration-[1500ms]"
+          }  py-6 transition-all ease-in-out rounded-3xl border-slate-100 border-opacity-30 h-[700px] flex flex-col justify-start items-center`}
         >
           <div className="w-full min-h-[250px] border-b border-slate-100 border-opacity-25 flex flex-col justify-around items-start">
-            <div className={`${cardLeftVisible ? "opacity-100 delay-[1000ms] duration-[1500ms]" : "opacity-0 delay-0 duration-0"} transition-opacity ease-in-out`}>
+            <div className={`${cardLeftVisible && screenWidth < 900 ? "opacity-100 delay-[300ms] duration-[1500ms] flex flex-col justify-center items-center w-full" : cardLeftVisible && screenWidth >= 900 ? "opacity-100 delay-[1000ms] duration-[1500ms]" : "opacity-0 delay-0 duration-0"} transition-opacity ease-in-out`}>
               <h4 className={`text-slate-50 font-sans text-xl font-semibold`}>DEMO Vivienda Nova</h4>
               <h4 className={`text-gray-400 font-sans text-xl font-semibold`}>Gratis, 1 mes</h4>
             </div>
-            <div className={`flex flex-col h-auto w-full justify-start items-center gap-0 pb-10 ${cardLeftVisible ? "opacity-100 delay-[500ms] duration-[1500ms]" : "opacity-0 delay-0 duration-0"} transition-opacity ease-in-out`}>
-              <div className="flex flex-row h-auto w-full justify-start items-center gap-4">
+            <div className={`flex flex-col h-auto w-full items-center gap-0 pb-10 ${cardLeftVisible && screenWidth < 900 ? "opacity-100 delay-[300ms] duration-[1500ms] justify-center" : cardLeftVisible && screenWidth >= 900 ? "opacity-100 delay-[500ms] duration-[1500ms] justify-start" : "opacity-0 delay-0 duration-0"} transition-opacity ease-in-out`}>
+              <div className={`flex flex-row h-auto w-full items-center gap-4 ${cardLeftVisible && screenWidth < 900 ? "justify-center" : cardLeftVisible && screenWidth >= 900 ? "justify-start" : ""}`}>
                 <h2 className="text-[4rem] font-bold font-sans text-white">0€</h2>
                 <h4 className="text-slate-50 font-sans text-xl font-normal">/ mes</h4>
               </div>
               <p className="text-xs font-light text-slate-100 opacity-30">* Facturación automática del plan Medium al siguiente mes.</p>
             </div>
           </div>
-          <div className={`h-full w-full flex flex-col justify-start items-start mt-10 gap-4`}>
+          <div className={`h-full flex flex-col justify-start mx-auto items-start mt-10 gap-4 ${cardLeftVisible && screenWidth < 900 ? "w-[75%]" : cardLeftVisible && screenWidth >= 900 ? "w-full" : ""}`}>
             <div className={`flex flex-row items-center justify-start gap-2 ${cardLeftVisible ? "opacity-100 delay-[1000ms] duration-[1500ms]" : "opacity-0 delay-0 duration-0"} transition-opacity ease-in-out`}>
               <Icon icon="mdi:tick-circle-outline" className="text-slate-50 min-h-[20px] min-w-[20px]" />
               <p className="font-sans text-slate-50 text-sm">CRM personalizado para tu empresa.</p>
@@ -157,25 +159,27 @@ const IndexComponent5: React.FC = () => {
         <div
           ref={centerCard}
           className={`rounded-3xl border border-slate-100 py-6  border-opacity-30 ${
-            cardCenterVisible && screenWidth < 900 ? "w-full h-[800px] opacity-100 px-4" : cardCenterVisible && screenWidth >= 900 ? "w-[40%] h-[800px] px-8" : !cardCenterVisible && screenWidth < 900 ? "w-0 h-[950px] opacity-0" : "w-[100%] h-[950px] px-8"
-          } transition-all ease-in-out duration-[1500ms] relative bg-black bg-opacity-90 z-[30] flex flex-col justify-start items-center`}
+            cardCenterVisible && screenWidth < 900 ? "w-full h-[800px] duration-[1000ms] opacity-100 px-4 max-w-[400px]" : cardCenterVisible && screenWidth >= 900 ? "w-[40%] h-[800px] px-8 duration-[1500ms]" : !cardCenterVisible && screenWidth < 900 ? "w-0 h-[950px] opacity-0" : "w-[100%] h-[950px] px-8 duration-[1500ms]"
+          } transition-all ease-in-out  relative bg-black bg-opacity-90 z-[30] flex flex-col justify-start items-center`}
         >
           <div className="w-full min-h-[220px] border-b border-slate-100 border-opacity-25 flex flex-col justify-around items-start">
-            <div className={`${cardCenterVisible ? "opacity-100 delay-[1000ms] duration-[1500ms]" : "opacity-0 delay-0 duration-0"} transition-opacity ease-in-out w-full flex flex-row items-center justify-between`}>
-              <div className="flex flex-col w-full justify-start items-start">
+            <div
+              className={`${cardCenterVisible && screenWidth < 900 ? "opacity-100 delay-[300ms] duration-[1500ms] justify-center items-center w-full flex-row-reverse gap-2" : cardCenterVisible && screenWidth >= 900 ? "opacity-100 delay-[1000ms] duration-[1500ms] items-center justify-between flex-row" : "opacity-0 delay-0 duration-0"} transition-opacity ease-in-out w-full flex`}
+            >
+              <div className={`flex flex-col justify-start items-start ${screenWidth < 900 && cardCenterVisible ? "w-fit" : screenWidth >= 900 && cardCenterVisible ? "w-full" : ""}`}>
                 <h4 className={`text-slate-50 font-sans text-xl font-semibold`}>Plan PRO</h4>
                 <h4 className={`text-gray-400 font-sans text-base font-semibold`}>Agencias profesionales.</h4>
               </div>
               <Icon icon="bitcoin-icons:verify-outline" className="text-blue-400 h-[5rem] w-[5rem] -mr-[10px]" />
             </div>
-            <div className={`flex flex-col h-auto w-full justify-start items-center gap-0 pb-10 ${cardCenterVisible ? "opacity-100 delay-[500ms] duration-[1500ms]" : "opacity-0 delay-0 duration-0"} transition-opacity ease-in-out`}>
-              <div className="flex flex-row h-auto w-full justify-start items-center gap-4">
+            <div className={`flex flex-col h-auto w-full items-center gap-0 pb-10 ${cardCenterVisible && screenWidth < 900 ? "opacity-100 delay-[300ms] duration-[1500ms] justify-center" : cardCenterVisible && screenWidth >= 900 ? "opacity-100 delay-[500ms] duration-[1500ms] justify-start" : "opacity-0 delay-0 duration-0"} transition-opacity ease-in-out`}>
+              <div className={`flex flex-row h-auto w-full justify-start items-center gap-4 ${cardCenterVisible && screenWidth < 900 ? "justify-center" : cardCenterVisible && screenWidth >= 900 ? "justify-start" : ""}`}>
                 <h2 className="text-[4rem] font-bold font-sans text-white">54€</h2>
                 <h4 className="text-slate-50 font-sans text-xl font-normal">/ mes</h4>
               </div>
             </div>
           </div>
-          <div className={`h-full w-full flex flex-col justify-start items-start mt-10 gap-4`}>
+          <div className={`h-full flex flex-col justify-start items-start mt-10 gap-4 ${cardCenterVisible && screenWidth < 900 ? "w-[75%]" : cardCenterVisible && screenWidth >= 900 ? "w-full" : ""}`}>
             <div className={`flex flex-row items-center justify-start gap-2 ${cardCenterVisible ? "opacity-100 delay-[1000ms] duration-[1500ms]" : "opacity-0 delay-0 duration-0"} transition-opacity ease-in-out`}>
               <Icon icon="mdi:tick-circle-outline" className="text-slate-50 min-h-[20px] min-w-[20px]" />
               <p className="font-sans text-slate-50 text-sm">CRM personalizado para tu empresa.</p>
@@ -265,7 +269,7 @@ const IndexComponent5: React.FC = () => {
 
         <div
           className={`${
-            cardCenterVisible && screenWidth < 900 ? "opacity-100 w-[105%] duration-[1500ms]" : screenWidth < 900 ? "opacity-0 w-0 duration-[0ms]" : cardCenterVisible && screenWidth >= 900 ? "w-[39.25%] opacity-100 duration-[1500ms]" : "opacity-0 w-[80%] duration-[0ms]"
+            cardCenterVisible && screenWidth < 900 ? "opacity-100 w-[105%] duration-[1500ms] max-w-[420px]" : screenWidth < 900 ? "opacity-0 w-0 duration-[0ms]" : cardCenterVisible && screenWidth >= 900 ? "w-[39.25%] opacity-100 duration-[1500ms]" : "opacity-0 w-[80%] duration-[0ms]"
           } transition-all ease-in-out   h-[820px] bg-blue-300 bg-opacity-30 blur-lg absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 z-[10]`}
         ></div>
       </div>
