@@ -1,6 +1,15 @@
 import type { MetaFunction, LinksFunction } from "@remix-run/node";
 import { useEffect, useState, useRef } from "react";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax";
+import ServiciosList from "~/components/ServiciosList";
+import styles from "~/styles/index.css?url";
+import { useScreenWidth } from "~/ScreenWidthProvider";
+import IndexComponents2 from "~/components/IndexComponent2";
+import IndexComponent3 from "~/components/IndexComponent3";
+import IndexComponent4 from "~/components/IndexComponent4";
+import IndexComponent5 from "~/components/IndexComponent5";
+
+export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export const meta: MetaFunction = () => {
   return [
@@ -14,15 +23,84 @@ export const meta: MetaFunction = () => {
     },
   ];
 };
+const Index: React.FC = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-export default function Index() {
-  const [screenWidth, setScreenWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 0);
   const [viewportHeight, setViewportHeight] = useState(typeof window !== "undefined" ? window.innerHeight : 0);
+  const [isH2Visible, setIsH2Visible] = useState(false);
+  const [isH3Visible, setIsH3Visible] = useState(false);
+  const [isH2Visible2, setIsH2Visible2] = useState(false);
+  const [isH3Visible2, setIsH3Visible2] = useState(false);
+  const [isVideoContainerVisible, setIsVideoContainerVisible] = useState(false);
+  const [isVideoContainerVisible2, setIsVideoContainerVisible2] = useState(false);
+  const sectionRef = useRef(null);
+  const sectionRef2 = useRef(null);
   const layer1Ref = useRef(null);
   const layer2Ref = useRef(null);
   const layer3Ref = useRef(null);
   const navRef = useRef(null);
   const [scrollY, setScrollY] = useState(0);
+  const { screenWidth } = useScreenWidth();
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsH2Visible(true);
+            setIsH3Visible(true);
+            setIsVideoContainerVisible(true);
+          } else {
+            setIsH2Visible(false);
+            setIsH3Visible(false);
+            setIsVideoContainerVisible(false);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsH2Visible2(true);
+            setIsH3Visible2(true);
+            setIsVideoContainerVisible2(true);
+          } else {
+            setIsH2Visible2(false);
+            setIsH3Visible2(false);
+            setIsVideoContainerVisible2(false);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    if (sectionRef2.current) {
+      observer.observe(sectionRef2.current);
+    }
+
+    return () => {
+      if (sectionRef2.current) {
+        observer.unobserve(sectionRef2.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -36,91 +114,93 @@ export default function Index() {
   }, []);
 
   useEffect(() => {
-    let lastScrollY = 0;
-    if (typeof window !== "undefined") {
-      lastScrollY = window.scrollY; // Initial value at page load
-
-      // Update the value on scroll
-      window.addEventListener("scroll", () => {
-        lastScrollY = window.scrollY;
-        console.log("Top of viewport Y position:", lastScrollY);
-      });
-    }
+    let lastScrollY = window.scrollY; // Capture the initial scroll position
+    setScrollY(lastScrollY); // Set the initial scroll position in state if needed
     let ticking = false;
 
+    // Set initial style for page load
+    if (layer2Ref.current) {
+      if (lastScrollY >= 0 && lastScrollY < 260) {
+        layer2Ref.current.style.position = "relative";
+        layer2Ref.current.style.transform = `translateY(${lastScrollY * -3}px)`;
+      }
+    }
+
+    // Set initial transforms and styles based on lastScrollY for page load
+    if (layer1Ref.current) {
+      layer1Ref.current.style.transform = `translateY(${lastScrollY * 3}px)`;
+    }
+
+    if (layer2Ref.current) {
+      if (lastScrollY >= 0 && lastScrollY < 260) {
+        layer2Ref.current.style.opacity = 0;
+        layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+        layer2Ref.current.style.top = "780px";
+        layer2Ref.current.style.transform = "translateY(0px)";
+        layer2Ref.current.style.position = "fixed";
+        layer2Ref.current.style.transform = `translateY(${lastScrollY * -3}px)`;
+        layer2Ref.current.style.opacity = 1;
+        layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+      } else if (lastScrollY >= 260 && lastScrollY < 840) {
+        layer2Ref.current.style.opacity = 1;
+        // layer2Ref.current.style.position = "fixed";
+        // layer2Ref.current.style.top = `${screenWidth >= 1290 ? 780 : screenWidth < 1200 ? 810 : screenWidth < 1070 ? 820 : screenWidth < 650 ? 835 : 845}px`;
+        layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+      } else if (lastScrollY >= 840) {
+        layer2Ref.current.style.opacity = 0;
+        layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+      }
+    }
+
+    if (layer3Ref.current) {
+      layer3Ref.current.style.opacity = lastScrollY >= 320 && lastScrollY < 755 ? 1 : 0;
+      layer3Ref.current.style.transition = `opacity 0.3s ease-in-out`;
+    }
+
+    if (navRef.current) {
+      navRef.current.style.opacity = lastScrollY >= 260 ? 1 : 0;
+      navRef.current.style.transition = `opacity 1s ease-in-out`;
+    }
+
+    // Scroll event handler to update styles on scroll
     const handleScroll = () => {
+      lastScrollY = window.scrollY;
       setScrollY(lastScrollY);
+
       if (!ticking) {
         window.requestAnimationFrame(() => {
           if (layer1Ref.current) {
             layer1Ref.current.style.transform = `translateY(${lastScrollY * 3}px)`;
           }
 
-          if (layer2Ref.current && lastScrollY <= 0) {
-            layer2Ref.current.style.opacity = 0;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY > 0 && lastScrollY < 260) {
-            layer2Ref.current.style.transform = `translateY(${lastScrollY * -3}px)`;
-            layer2Ref.current.style.opacity = 1;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY <= 260) {
-            layer2Ref.current.style.transform = `translateY(${lastScrollY * -3}px)`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 330) {
-            layer2Ref.current.style.opacity = 100;
-            layer2Ref.current.style.position = "fixed";
-            layer2Ref.current.style.top = `855px`;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 435) {
-            layer2Ref.current.style.opacity = 100;
-            layer2Ref.current.style.position = "fixed";
-            layer2Ref.current.style.top = `845px`;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 650) {
-            layer2Ref.current.style.opacity = 100;
-            layer2Ref.current.style.position = "fixed";
-            layer2Ref.current.style.top = `835px`;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 1070) {
-            layer2Ref.current.style.opacity = 100;
-            layer2Ref.current.style.position = "fixed";
-            layer2Ref.current.style.top = `820px`;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 1200) {
-            layer2Ref.current.style.opacity = 100;
-            layer2Ref.current.style.position = "fixed";
-            layer2Ref.current.style.top = `810px`;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth < 1290) {
-            layer2Ref.current.style.opacity = 100;
-            layer2Ref.current.style.position = "fixed";
-            layer2Ref.current.style.top = `810px`;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY > 260 && lastScrollY < 840 && screenWidth >= 1290) {
-            layer2Ref.current.style.opacity = 100;
-            layer2Ref.current.style.position = "fixed";
-            layer2Ref.current.style.top = `780px`;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
-          } else if (layer2Ref.current && lastScrollY >= 840) {
-            layer2Ref.current.style.opacity = 0;
-            layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+          if (layer2Ref.current) {
+            if (lastScrollY >= 0 && lastScrollY < 260) {
+              layer2Ref.current.style.opacity = 0;
+              layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+              layer2Ref.current.style.top = "780px";
+              layer2Ref.current.style.transform = "translateY(0px)";
+              layer2Ref.current.style.position = "fixed";
+              layer2Ref.current.style.transform = `translateY(${lastScrollY * -3}px)`;
+              layer2Ref.current.style.opacity = 1;
+              layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+            } else if (lastScrollY > 260 && lastScrollY < 840) {
+              layer2Ref.current.style.opacity = 1;
+              // layer2Ref.current.style.position = "fixed";
+              // layer2Ref.current.style.top = `${screenWidth >= 1290 ? 780 : screenWidth < 1200 ? 810 : screenWidth < 1070 ? 820 : screenWidth < 650 ? 835 : 845}px`;
+              layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+            } else if (lastScrollY >= 840) {
+              layer2Ref.current.style.opacity = 0;
+              layer2Ref.current.style.transition = `opacity 0.6s ease-in-out`;
+            }
           }
 
-          // layer3Ref
-          if (layer3Ref.current && lastScrollY > 0 && lastScrollY >= 320 && lastScrollY < 755) {
-            layer3Ref.current.style.opacity = 1;
-            layer3Ref.current.style.transition = `opacity 0.3s ease-in-out`;
-          } else if (layer3Ref.current && lastScrollY < 320) {
-            layer3Ref.current.style.opacity = 0;
-            layer3Ref.current.style.transition = `opacity 0.3s ease-in-out`;
-          } else if (layer3Ref.current && lastScrollY >= 755) {
-            layer3Ref.current.style.opacity = 0;
+          if (layer3Ref.current) {
+            layer3Ref.current.style.opacity = lastScrollY >= 320 && lastScrollY < 755 ? 1 : 0;
             layer3Ref.current.style.transition = `opacity 0.3s ease-in-out`;
           }
 
-          if (navRef.current && lastScrollY < 260) {
-            navRef.current.style.opacity = 0;
-          } else if (navRef.current && lastScrollY >= 260) {
-            navRef.current.style.opacity = 1;
+          if (navRef.current) {
+            navRef.current.style.opacity = lastScrollY >= 260 ? 1 : 0;
             navRef.current.style.transition = `opacity 1s ease-in-out`;
           }
 
@@ -130,21 +210,30 @@ export default function Index() {
       }
     };
 
+    // Add scroll event listener
     window.addEventListener("scroll", handleScroll);
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const [scrollTop, setScrollTop] = useState(0);
+
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    // Function to update scroll position
+    const updateScrollPosition = () => {
+      setScrollTop(window.scrollY || document.documentElement.scrollTop);
+    };
 
-    const handleResize = () => setScreenWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
+    // Check the initial scroll position on mount
+    updateScrollPosition();
 
-    // Set initial width in case of rehydration or client-side only
-    setScreenWidth(window.innerWidth);
+    // Add scroll event listener
+    window.addEventListener("scroll", updateScrollPosition);
 
-    return () => window.removeEventListener("resize", handleResize);
+    // Clean up event listener on unmount
+    return () => {
+      window.removeEventListener("scroll", updateScrollPosition);
+    };
   }, []);
 
   return (
@@ -161,8 +250,8 @@ export default function Index() {
           height: "1700px",
         }}
       >
-        <nav ref={navRef} className="fixed top-0 left-0 w-full opacity-0">
-          <ul className="flex justify-center items-center w-fit px-8 mx-auto gap-8 text-white pt-8 text-sans font-medium border-b border-white pb-4">
+        <nav ref={navRef} className={`fixed top-0 left-0 right-0 ${screenWidth < 450 ? "w-[95%] px-0 flex flex-row justify-center items-center" : "w-fit px-16"} mx-auto mt-3 rounded-xl py-auto z-[99] backdrop-blur-sm bg-gray-950 bg-opacity-50 opacity-0 flex flex-col justify-center items-center border-[0.9px] border-gray-400 border-opacity-50`}>
+          <ul className="flex justify-center items-center w-fit px-8 mx-auto gap-8 text-gray-200 pt-4 text-sans font-medium pb-4 z-[99]">
             <li>
               <a href="/">Inicio</a>
             </li>
@@ -177,7 +266,7 @@ export default function Index() {
         <div className="fixed top-0 left-0 z-50">
           <p className="opacity-0">scrolling: {scrollY}</p>
           <p className="opacity-0">screenWidth: {screenWidth}</p>
-          <p className="opacity-0">viewportHeight: {viewportHeight}</p>
+          <p className="opacity-0">scrollTop: {scrollTop}</p>
         </div>
         <div
           ref={layer1Ref}
@@ -209,38 +298,38 @@ export default function Index() {
                 margin: "0",
                 ...(screenWidth < 300
                   ? {
-                      maxWidth: "215%",
-                      width: "215%",
+                      maxWidth: "145%",
+                      width: "145%",
                       transform: "translateX(-30px)",
                     }
                   : screenWidth < 330
                   ? {
-                      maxWidth: "200%",
-                      width: "200%",
+                      maxWidth: "140%",
+                      width: "140%",
                       transform: "translateX(-20px)",
                     }
                   : screenWidth < 350
                   ? {
-                      maxWidth: "200%",
-                      width: "200%",
+                      maxWidth: "135%",
+                      width: "135%",
                       transform: "translateX(-20px)",
                     }
                   : screenWidth < 370
                   ? {
-                      maxWidth: "200%",
-                      width: "200%",
+                      maxWidth: "130%",
+                      width: "130%",
                       transform: "translateX(-20px)",
                     }
                   : screenWidth < 385
                   ? {
-                      maxWidth: "200%",
-                      width: "200%",
+                      maxWidth: "130%",
+                      width: "130%",
                       transform: "translateX(-20px)",
                     }
                   : screenWidth < 400
                   ? {
-                      maxWidth: "190%",
-                      width: "190%",
+                      maxWidth: "120%",
+                      width: "120%",
                       transform: "translateX(-20px)",
                     }
                   : screenWidth < 450
@@ -292,57 +381,60 @@ export default function Index() {
             />
           )}
         </div>
-        <div className={`z-0 h-[1400px] w-full relative transition-transform duration-75 ease-in-out opacity-100 flex justify-center items-end`}>
-          <h1
-            ref={layer2Ref}
-            className={`font-bold p-0 m-0 text-center relative drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] justify-center items-center ${
-              screenWidth < 330
-                ? "text-[2.5rem]"
-                : screenWidth < 380
-                ? "text-[3rem]"
-                : screenWidth < 435
-                ? "text-[3.5rem]"
-                : screenWidth < 489
-                ? "text-[4rem]"
-                : screenWidth < 540
-                ? "text-[4.5rem]"
-                : screenWidth < 595
-                ? "text-[5rem]"
-                : screenWidth < 650
-                ? "text-[5.5rem]"
-                : screenWidth < 810
-                ? "text-[6rem]"
-                : screenWidth < 810
-                ? "text-[7rem]"
-                : screenWidth < 860
-                ? "text-[7.5rem]"
-                : screenWidth < 1070
-                ? "text-[8rem]"
-                : screenWidth < 1290
-                ? "text-[10rem]"
-                : screenWidth < 1490
-                ? "text-[12rem]"
-                : screenWidth < 1600
-                ? "text-[14rem]"
-                : "text-[15rem]"
-            }`}
-            style={{
-              background: "linear-gradient(170deg, #f9fafb, #e5e7eb, #9ca3af, #6b7280)",
-              color: "transparent",
-              WebkitBackgroundClip: "text",
-              transition: "all 0.5sease-in-out",
-            }}
-          >
-            Vivienda Nova
-          </h1>
-        </div>
+
+        <h1
+          ref={layer2Ref}
+          className={`font-bold p-0 mx-auto w-full text-center drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)] justify-center items-center ${
+            screenWidth < 330
+              ? "text-[2.5rem]"
+              : screenWidth < 380
+              ? "text-[3rem]"
+              : screenWidth < 435
+              ? "text-[3.5rem]"
+              : screenWidth < 489
+              ? "text-[4rem]"
+              : screenWidth < 540
+              ? "text-[4.5rem]"
+              : screenWidth < 595
+              ? "text-[5rem]"
+              : screenWidth < 650
+              ? "text-[5.5rem]"
+              : screenWidth < 810
+              ? "text-[6rem]"
+              : screenWidth < 810
+              ? "text-[7rem]"
+              : screenWidth < 860
+              ? "text-[7.5rem]"
+              : screenWidth < 1070
+              ? "text-[8rem]"
+              : screenWidth < 1290
+              ? "text-[10rem]"
+              : screenWidth < 1490
+              ? "text-[12rem]"
+              : screenWidth < 1600
+              ? "text-[14rem]"
+              : "text-[15rem]"
+          }`}
+          style={{
+            background: "linear-gradient(170deg, #f9fafb, #e5e7eb, #9ca3af, #6b7280)",
+            color: "transparent",
+            WebkitBackgroundClip: "text",
+            transition: "all 0.5s ease-in-out",
+            opacity: 1,
+            textAlign: "center",
+            marginTop: screenWidth < 330 ? "120px" : screenWidth < 380 ? "100px" : screenWidth < 435 ? "80px" : screenWidth < 1290 ? "50px" : "0",
+          }}
+        >
+          Vivienda Nova
+        </h1>
+
         <div
           ref={layer3Ref}
-          className={`fixed left-[50%] translate-x-[-50%] z-50  opacity-0 ${
+          className={`fixed left-[50%] translate-x-[-50%] z-[0]  opacity-0 ${
             screenWidth < 435 ? "w-[90%] top-[63%] translate-y-[-50%]" : screenWidth < 450 ? "w-[90%] top-[63%] translate-y-[-50%]" : screenWidth < 500 ? "w-[90%] top-[63%] translate-y-[-50%]" : screenWidth < 600 ? "w-[95%] top-[50%] translate-y-[-50%]" : screenWidth < 760 ? "w-[95%] top-[250px]" : screenWidth < 800 ? "top-[250px] w-[740px] " : "top-[330px] w-[780px]"
           }`}
         >
-          <h2 className={`font-sans text-gray-50 font-semibold ${screenWidth < 430 ? "text-2xl" : "text-3xl"} text-center`}>Una nueva forma de vender</h2>
+          <h2 className={`font-sans text-gray-50 font-semibold ${screenWidth < 430 ? "text-2xl" : "text-3xl"} text-center z-[5]`}>Una nueva forma de vender</h2>
           <img
             src={`${screenWidth < 500 ? "/iphone15v1.png" : "/imacMockup.png"}`}
             alt="imacMockup"
@@ -394,7 +486,52 @@ export default function Index() {
           />
         </div>
       </div>
-      <div className="bg-black h-[20000px]"></div>
+      {/* Section 1 */}
+      <div ref={sectionRef} className={`bg-black h-auto flex flex-col justify-start items-center gap-1 indexinfocontainer1 pb-20 transition-opacity duration-[1500ms] ease-in-out`}>
+        <h2 className={`${isH2Visible ? "opacity-100" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out text-gray-50 font-sans ${screenWidth < 400 ? "text-3xl" : "text-4xl"} font-bold text-center`}>Controla tus inmuebles.</h2>
+        <h3 className={`${isH3Visible ? "opacity-70" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out text-gray-300 font-sans ${screenWidth < 400 ? "text-2xl" : "text-3xl"} font-bold text-center`}>Visualiza los datos.</h3>
+        <div className={`bg-gray-700 h-auto relative z-10 ${screenWidth < 1280 ? "w-[95%]" : " w-[1200px]"} rounded-3xl border border-gray-800 bg-opacity-0 mt-4 ${isVideoContainerVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out`}>
+          <div className="relative z-[10] w-full h-full">
+            <video autoPlay loop muted playsInline className="w-full z-10 h-full object-cover p-2 rounded-3xl opacity-100">
+              <source src="/video1.webm" type="video/webm" className="border border-gray-600 " />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div className="absolute top-1/2 left-1/2 w-[103%] h-[103%] bg-white opacity-30 rounded-3xl blur-2xl transform -translate-x-1/2 -translate-y-1/2 z-0"></div>
+        </div>
+        <p className={`${isVideoContainerVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out text-gray-400 font-sans font-medium pt-4 ${screenWidth < 400 ? "text-lg" : "text-xl"}  ${screenWidth <= 1000 ? "w-[90%]" : screenWidth <= 1500 ? "w-1/2" : "w-1/3"} text-center`}>
+          <strong className="text-white">Busca tus inmuebles.</strong> Filtra las propiedades y analiza qué está ocurriendo en tu estrategia de venta.
+        </p>
+      </div>
+
+      {/* Section 2 */}
+      <div ref={sectionRef2} className={`h-auto flex flex-col justify-start items-center gap-1 indexinfocontainer1 ${screenWidth < 600 ? "pb-8" : "pb-20"} transition-opacity duration-[1500ms] ease-in-out`}>
+        <div className={`h-auto relative z-10 ${screenWidth < 1280 ? "w-[95%]" : "w-[95%]"} rounded-3xl ${isVideoContainerVisible2 ? "opacity-100" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out flex ${screenWidth < 600 ? "flex-col-reverse justify-center items-center mt-0" : "flex-row justify-between mt-10"} `}>
+          <div className={`h-auto flex flex-col justify-center items-center ${screenWidth < 600 ? "w-full" : "w-1/2"} gap-4`}>
+            <div className={`h-fit flex flex-col justify-center gap-4 ${screenWidth < 600 ? "items-center" : "items-start"}`}>
+              <h2 className={`${isH2Visible2 ? "opacity-100" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out text-gray-50 font-sans font-bold ${screenWidth < 600 ? "text-center text-3xl pt-4" : "text-4xl"}`}>No es cómo vendes.</h2>
+              <h3 className={`${isH3Visible2 ? "opacity-70" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out text-gray-300 font-sans font-bold ${screenWidth < 600 ? "text-center text-2xl px-3" : "text-3xl"}`}>Es cómo organizas tu estrategia.</h3>
+              <button className={`${isH3Visible2 ? "opacity-100" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out text-gray-950 bg-gray-100 p-2 px-3 font-sans text-lg font-medium rounded-xl`}>Empieza ya</button>
+            </div>
+          </div>
+          <div className={`relative z-[10] h-full ${screenWidth < 600 ? "w-full" : "w-1/2"}`}>
+            <div className="absolute top-1/2 left-1/2 w-[103%] h-[103%] bg-white opacity-30 rounded-3xl blur-2xl transform -translate-x-1/2 -translate-y-1/2 z-0"></div>
+            <div className="relative z-[10]">
+              <video autoPlay loop muted playsInline className="w-full z-10 h-full object-cover p-2 rounded-3xl opacity-100">
+                <source src="/video2.webm" type="video/webm" className="border border-gray-600 " />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ServiciosList />
+      <IndexComponents2 />
+      <IndexComponent3 />
+      <IndexComponent4 />
+      <IndexComponent5 />
     </div>
   );
-}
+};
+
+export default Index;

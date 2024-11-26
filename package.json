@@ -11,13 +11,17 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@iconify/react": "^5.0.2",
+    "@nextui-org/react": "^2.4.8",
     "@react-spring/parallax": "^9.7.5",
     "@remix-run/node": "^2.13.1",
     "@remix-run/react": "^2.13.1",
     "@remix-run/serve": "^2.13.1",
+    "framer-motion": "^11.11.15",
     "isbot": "^4.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-lottie-player": "^2.1.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.13.1",
