@@ -25,7 +25,7 @@ const IndexComponent5: React.FC = () => {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.4 }
     );
 
     // if (sectionRef.current) {
@@ -55,7 +55,7 @@ const IndexComponent5: React.FC = () => {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.4 }
     );
 
     // if (sectionRef.current) {
@@ -85,7 +85,7 @@ const IndexComponent5: React.FC = () => {
           }
         });
       },
-      { threshold: 0.7 }
+      { threshold: 0.4 }
     );
 
     // if (sectionRef.current) {
@@ -111,7 +111,8 @@ const IndexComponent5: React.FC = () => {
         <h2 className={`font-sans font-bold text-gray-50 text-center ${screenWidth < 400 ? "text-3xl" : "text-4xl"} mb-4 transition-opacity ease-in-out duration-[1500ms]`}>Empieza ya.</h2>
         <h3 className={`text-gray-300 font-sans ${screenWidth < 400 ? "text-2xl" : "text-3xl"} font-bold text-center mb-6 transition-opacity ease-in-out duration-[1500ms]`}>Haz que tus ventas suban gracias al trabajo organizado.</h3>
       </div>
-      <div className={`flex ${screenWidth < 900 ? "flex-col gap-8" : "flex-row"} justify-center items-center mx-auto relative overflow-x-visible overflow-y-clip py-16`}>
+      <div className={`flex ${screenWidth < 900 ? "flex-col gap-8" : "flex-row"} justify-center items-center mx-auto relative overflow-x-visible overflow-y-clip py-16 w-full`}>
+        {/* left card */}
         <div
           ref={leftCard}
           className={`${cardLeftVisible && screenWidth < 900 ? "w-full border px-4" : cardLeftVisible && screenWidth >= 900 ? "w-1/3 border border-r-0 rounded-tr-none rounded-br-none px-8" : "w-0 border-none px-8"}  py-6 transition-all ease-in-out duration-[1500ms] rounded-3xl border-slate-100 border-opacity-30 h-[700px] flex flex-col justify-start items-center`}
@@ -156,7 +157,7 @@ const IndexComponent5: React.FC = () => {
         <div
           ref={centerCard}
           className={`rounded-3xl border border-slate-100 py-6  border-opacity-30 ${
-            cardCenterVisible && screenWidth < 900 ? "w-full h-[800px] opacity-100 px-4" : cardCenterVisible && screenWidth >= 900 ? "w-[40%] h-[800px] px-8" : screenWidth < 900 ? "w-0 h-[950px] opacity-0" : "w-[80%] h-[950px] px-8 "
+            cardCenterVisible && screenWidth < 900 ? "w-full h-[800px] opacity-100 px-4" : cardCenterVisible && screenWidth >= 900 ? "w-[40%] h-[800px] px-8" : !cardCenterVisible && screenWidth < 900 ? "w-0 h-[950px] opacity-0" : "w-[100%] h-[950px] px-8"
           } transition-all ease-in-out duration-[1500ms] relative bg-black bg-opacity-90 z-[30] flex flex-col justify-start items-center`}
         >
           <div className="w-full min-h-[220px] border-b border-slate-100 border-opacity-25 flex flex-col justify-around items-start">
@@ -216,15 +217,17 @@ const IndexComponent5: React.FC = () => {
         {/* right card */}
         <div
           ref={rightCard}
-          className={`${cardRightVisible && screenWidth < 900 ? "w-full border px-4" : cardRightVisible && screenWidth >= 900 ? "w-1/3 border border-l-0 rounded-tl-none rounded-bl-none px-8" : "w-0 boder-none px-8"}  py-6 transition-all ease-in-out duration-[1500ms] rounded-3xl  border-slate-100 border-opacity-30 h-[700px] flex flex-col justify-start items-center`}
+          className={`${cardRightVisible && screenWidth < 900 ? "w-full border px-4" : cardRightVisible && screenWidth >= 900 ? "w-1/3 border border-l-0 rounded-tl-none rounded-bl-none px-8" : "w-0 border-none px-8"}  py-6 transition-all ease-in-out duration-[1500ms] rounded-3xl border-slate-100 border-opacity-30 h-[700px] flex flex-col justify-start items-center`}
         >
           <div className="w-full min-h-[250px] border-b border-slate-100 border-opacity-25 flex flex-col justify-around items-start">
-            <div className={`${cardRightVisible ? "opacity-100 delay-[1000ms] duration-[1500ms]" : "opacity-0 delay-0 duration-0"} transition-opacity ease-in-out flex flex-row items-center`}>
-              <div className="flex flex-col w-full justify-start items-start">
+            <div className={`${cardRightVisible ? "opacity-100 delay-[1000ms] duration-[1500ms]" : "opacity-0 delay-0 duration-0"} transition-opacity ease-in-out flex flex-row justify-between items-center w-full`}>
+              <div>
                 <h4 className={`text-slate-50 font-sans text-xl font-semibold`}>Plan MEDIUM</h4>
                 <h4 className={`text-gray-400 font-sans text-base font-semibold`}>Para empresas pequeñas</h4>
               </div>
-              <Icon icon="bitcoin-icons:verify-outline" className="text-slate-400 h-[5rem] w-[5rem] -mr-[10px]" />
+              <div className="-mr-[20px]">
+                <Icon icon="bitcoin-icons:verify-outline" className="text-slate-400 h-[4rem] w-[4rem]" />
+              </div>
             </div>
             <div className={`flex flex-col h-auto w-full justify-start items-center gap-0 pb-10 ${cardRightVisible ? "opacity-100 delay-[500ms] duration-[1500ms]" : "opacity-0 delay-0 duration-0"} transition-opacity ease-in-out`}>
               <div className="flex flex-row h-auto w-full justify-start items-center gap-4">
@@ -256,7 +259,7 @@ const IndexComponent5: React.FC = () => {
             </div>
           </div>
           <div className={`w-full flex flex-row justify-center items-center ${cardRightVisible ? "opacity-100 delay-[1000ms] duration-[1500ms]" : "opacity-0 delay-0 duration-0"} transition-opacity ease-in-out`}>
-            <button className="py-2 px-4 bg-slate-200 text-black font-sans font-semibold rounded-xl md:hover:bg-white">Elige este plan</button>
+            <button className="py-2 px-4 bg-slate-200 text-black font-sans font-semibold rounded-xl md:hover:bg-white">Prueba gratuita</button>
           </div>
         </div>
 
