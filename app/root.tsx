@@ -26,7 +26,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body style={{ margin: 0, backgroundColor: "#000", height: "auto", overflowX: "hidden" }}>
+      <body style={{ margin: 0, backgroundColor: "#000", height: "100%", overflowX: "hidden" }} className="bg-black min-h-dvh">
         <ScreenWidthContextProvider>
           <NextUIProvider>
             {children}
@@ -35,7 +35,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </NextUIProvider>
         </ScreenWidthContextProvider>
       </body>
-      <footer className="bg-black text-gray-50 backdrop-blur-sm py-6 pt-24">
+      <footer className="bg-black text-gray-50 backdrop-blur-sm py-6 pt-24 absolute w-full">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-center md:text-left">
