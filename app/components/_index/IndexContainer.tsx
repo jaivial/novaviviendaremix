@@ -7,6 +7,8 @@ import IndexComponents2 from "~/components/IndexComponent2";
 import IndexComponent3 from "~/components/IndexComponent3";
 import IndexComponent4 from "~/components/IndexComponent4";
 import IndexComponent5 from "~/components/IndexComponent5";
+import Section1 from "./Section1";
+import Section2 from "./Section2";
 
 const IndexContainer: React.FC = () => {
   useScrollToTop();
@@ -17,7 +19,7 @@ const IndexContainer: React.FC = () => {
   const { scrollY, layer1Ref, layer2Ref, layer3Ref, navRef } = useScrollY();
 
   return (
-    <div>
+    <div className="bg-black">
       <div
         style={{
           backgroundImage: "url('/blackbg4edit2.jpg')",
@@ -267,44 +269,9 @@ const IndexContainer: React.FC = () => {
         </div>
       </div>
       {/* Section 1 */}
-      <div ref={sectionRef} className={`bg-black h-auto flex flex-col justify-start items-center gap-1 indexinfocontainer1 pb-20 transition-opacity duration-[1500ms] ease-in-out`}>
-        <h2 className={`${isH2Visible ? "opacity-100" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out text-gray-50 font-sans ${screenWidth < 400 ? "text-3xl" : "text-4xl"} font-bold text-center`}>Controla tus inmuebles.</h2>
-        <h3 className={`${isH3Visible ? "opacity-70" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out text-gray-300 font-sans ${screenWidth < 400 ? "text-2xl" : "text-3xl"} font-bold text-center`}>Visualiza los datos.</h3>
-        <div className={`bg-gray-700 h-auto relative z-10 ${screenWidth < 1280 ? "w-[95%]" : " w-[1200px]"} rounded-3xl border border-gray-800 bg-opacity-0 mt-4 ${isVideoContainerVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out`}>
-          <div className="relative z-[10] w-full h-full">
-            <video autoPlay loop muted playsInline className="w-full z-10 h-full object-cover p-2 rounded-3xl opacity-100">
-              <source src="/video1.webm" type="video/webm" className="border border-gray-600 " />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          <div className="absolute top-1/2 left-1/2 w-[103%] h-[103%] bg-white opacity-30 rounded-3xl blur-2xl transform -translate-x-1/2 -translate-y-1/2 z-0"></div>
-        </div>
-        <p className={`${isVideoContainerVisible ? "opacity-100" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out text-gray-400 font-sans font-medium pt-4 ${screenWidth < 400 ? "text-lg" : "text-xl"}  ${screenWidth <= 1000 ? "w-[90%]" : screenWidth <= 1500 ? "w-1/2" : "w-1/3"} text-center`}>
-          <strong className="text-white">Busca tus inmuebles.</strong> Filtra las propiedades y analiza qué está ocurriendo en tu estrategia de venta.
-        </p>
-      </div>
-
+      <Section1 sectionRef={sectionRef} screenWidth={screenWidth} isH2Visible={isH2Visible} isH3Visible={isH3Visible} isVideoContainerVisible={isVideoContainerVisible} />
       {/* Section 2 */}
-      <div ref={sectionRef2} className={`h-auto flex flex-col justify-start items-center gap-1 indexinfocontainer1 ${screenWidth < 600 ? "pb-8" : "pb-20"} transition-opacity duration-[1500ms] ease-in-out`}>
-        <div className={`h-auto relative z-10 ${screenWidth < 1280 ? "w-[95%]" : "w-[95%]"} rounded-3xl ${isVideoContainerVisible2 ? "opacity-100" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out flex ${screenWidth < 600 ? "flex-col-reverse justify-center items-center mt-0" : "flex-row justify-between mt-10"} `}>
-          <div className={`h-auto flex flex-col justify-center items-center ${screenWidth < 600 ? "w-full" : "w-1/2"} gap-4`}>
-            <div className={`h-fit flex flex-col justify-center gap-4 ${screenWidth < 600 ? "items-center" : "items-start"}`}>
-              <h2 className={`${isH2Visible2 ? "opacity-100" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out text-gray-50 font-sans font-bold ${screenWidth < 600 ? "text-center text-3xl pt-4" : "text-4xl"}`}>No es cómo vendes.</h2>
-              <h3 className={`${isH3Visible2 ? "opacity-70" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out text-gray-300 font-sans font-bold ${screenWidth < 600 ? "text-center text-2xl px-3" : "text-3xl"}`}>Es cómo organizas tu estrategia.</h3>
-              <button className={`${isH3Visible2 ? "opacity-100" : "opacity-0"} transition-opacity duration-[1500ms] ease-in-out text-gray-950 bg-gray-100 p-2 px-3 font-sans text-lg font-medium rounded-xl`}>Empieza ya</button>
-            </div>
-          </div>
-          <div className={`relative z-[10] h-full ${screenWidth < 600 ? "w-full" : "w-1/2"}`}>
-            <div className="absolute top-1/2 left-1/2 w-[103%] h-[103%] bg-white opacity-30 rounded-3xl blur-2xl transform -translate-x-1/2 -translate-y-1/2 z-0"></div>
-            <div className="relative z-[10]">
-              <video autoPlay loop muted playsInline className="w-full z-10 h-full object-cover p-2 rounded-3xl opacity-100">
-                <source src="/video2.webm" type="video/webm" className="border border-gray-600 " />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Section2 sectionRef2={sectionRef2} screenWidth={screenWidth} isH2Visible2={isH2Visible2} isH3Visible2={isH3Visible2} isVideoContainerVisible2={isVideoContainerVisible2} />
       <ServiciosList />
       <IndexComponents2 />
       <IndexComponent3 />
