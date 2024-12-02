@@ -27,9 +27,9 @@ const IndexComponents2: React.FC = () => {
         {/* absolute div to create shadow like from the bottom */}
         {/* <div className="w-[20000px] bg-red-200 blur-[20px] h-[500px] -mt-[300px] z-[30]"></div> */}
         {/* <div
-          style={{ transform: "translateZ(30)" }}
-          className={`bg-yellow-200 mx-0 h-[500px] min-w-[2000px] w-[2000px] z-[30] ${screenWidth < 380 ? "-top-[7rem] blur-[3rem]" : screenWidth < 420 ? "-top-[8rem] blur-[3rem]" : screenWidth < 500 ? "-top-[9rem] blur-[3rem]" : screenWidth < 650 ? "-top-[12rem] blur-[5rem]" : screenWidth < 700 ? "-top-[13rem] blur-[5rem]" : "-top-[17rem] blur-[6rem]"}`}
-        ></div> */}
+            style={{ transform: "translateZ(30)" }}
+            className={`bg-yellow-200 mx-0 h-[500px] min-w-[2000px] w-[2000px] z-[30] ${screenWidth < 380 ? "-top-[7rem] blur-[3rem]" : screenWidth < 420 ? "-top-[8rem] blur-[3rem]" : screenWidth < 500 ? "-top-[9rem] blur-[3rem]" : screenWidth < 650 ? "-top-[12rem] blur-[5rem]" : screenWidth < 700 ? "-top-[13rem] blur-[5rem]" : "-top-[17rem] blur-[6rem]"}`}
+          ></div> */}
 
         <div className={`flex flex-wrap flex-row max-w-[1024px]  ${screenWidth < 900 ? "items-center justify-center" : "items-start justify-between"} mt-2 z-[40] gap-10 relative ${screenWidth < 1080 ? "w-[90%]" : "w-full"}`}>
           <div className={`${screenWidth < 700 ? "w-[95%]" : screenWidth < 900 ? "w-[90%]" : "w-[30%]"} h-auto`}>

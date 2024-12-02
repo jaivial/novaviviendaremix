@@ -78,43 +78,42 @@ const ServiciosList: React.FC = () => {
           {cardsInfo.map(
             (card) =>
               card.selectedTab === selectedTab && (
-                <>
-                  <Link to={`${card.title}`}>
-                    <div
-                      className={`transition-all ease-in-out duration-[2000ms] h-[700px]  ${screenWidth < 480 ? "min-w-[350px] max-w-[350px]" : "min-w-[450px] max-w-[450px]"} ${opacityArray.includes(card.id) ? "opacity-100" : "opacity-0"} ${
-                        hoveredCardId === card.id ? card.bgColorHover : card.bgColor
-                      } flex flex-col justify-center items-center rounded-3xl border-[0.5px] border-gray-400 border-opacity-70 p-6 bg-opacity-30 backdrop-blur-md md:hover:cursor-pointer z-[50]`}
-                      style={{
-                        ...(hoveredCardId === card.id ? Styles.mouseIn : Styles.mouseOut), // Smooth transition effect
-                      }}
-                      onMouseEnter={() => setHoveredCardId(card.id)}
-                      onMouseLeave={() => setHoveredCardId(null)}
-                    >
-                      {/* div to create shadows effect */}
-                      <div className="flex flex-row w-[98%] justify-between items-center mb-6 z-[50]">
-                        <div className="flex flex-row w-full justify-start items-center gap-3">
-                          <div className="p-1 bg-opacity-0 rounded-2xl relative shadow-md">
-                            <div className="bg-black p-2 rounded-2xl">
-                              <div className={`border-2 ${card.borderColor} p-2 rounded-xl`}>
-                                <Icon icon={card.icon} className="text-[2.5rem] text-white" />
-                              </div>
+                <Link to={`${card.title}`} key={card.id}>
+                  <div
+                    key={card.id}
+                    className={`transition-all ease-in-out duration-[2000ms] h-[700px]  ${screenWidth < 480 ? "min-w-[350px] max-w-[350px]" : "min-w-[450px] max-w-[450px]"} ${opacityArray.includes(card.id) ? "opacity-100" : "opacity-0"} ${
+                      hoveredCardId === card.id ? card.bgColorHover : card.bgColor
+                    } flex flex-col justify-center items-center rounded-3xl border-[0.5px] border-gray-400 border-opacity-70 p-6 bg-opacity-30 backdrop-blur-md md:hover:cursor-pointer z-[50]`}
+                    style={{
+                      ...(hoveredCardId === card.id ? Styles.mouseIn : Styles.mouseOut), // Smooth transition effect
+                    }}
+                    onMouseEnter={() => setHoveredCardId(card.id)}
+                    onMouseLeave={() => setHoveredCardId(null)}
+                  >
+                    {/* div to create shadows effect */}
+                    <div className="flex flex-row w-[98%] justify-between items-center mb-6 z-[50]">
+                      <div className="flex flex-row w-full justify-start items-center gap-3">
+                        <div className="p-1 bg-opacity-0 rounded-2xl relative shadow-md">
+                          <div className="bg-black p-2 rounded-2xl">
+                            <div className={`border-2 ${card.borderColor} p-2 rounded-xl`}>
+                              <Icon icon={card.icon} className="text-[2.5rem] text-white" />
                             </div>
                           </div>
+                        </div>
 
-                          <h3 className="text-gray-100 font-sans font-medium text-2xl">{card.title}</h3>
-                        </div>
-                        <div className="p-3 border-2 rounded-xl bg-gradient-to-b from-slate-950 to-slate-700 opacity-50 md:hover:bg-gradient-to-t md:hover:from-slate-300 md:hover:to-white md:hover:border-white md:hover:text-black text-white transition-all ease-in-out duration-500">
-                          <Icon icon="oui:arrow-right" className="text-2xl" />
-                        </div>
+                        <h3 className="text-gray-100 font-sans font-medium text-2xl">{card.title}</h3>
                       </div>
-                      <div className="w-[95%] mb-8">
-                        <p className="text-gray-100 text-align">{card.description}</p>
+                      <div className="p-3 border-2 rounded-xl bg-gradient-to-b from-slate-950 to-slate-700 opacity-50 md:hover:bg-gradient-to-t md:hover:from-slate-300 md:hover:to-white md:hover:border-white md:hover:text-black text-white transition-all ease-in-out duration-500">
+                        <Icon icon="oui:arrow-right" className="text-2xl" />
                       </div>
-                      <div className="w-[95%] h-[1px] bg-gray-600 mb-8"></div>
-                      <div className="w-[98%] h-full bg-red-300 rounded-3xl bg-cover bg-no-repeat bg-left mx-8" style={{ backgroundImage: `url(${card.image})` }}></div>
                     </div>
-                  </Link>
-                </>
+                    <div className="w-[95%] mb-8">
+                      <p className="text-gray-100 text-align">{card.description}</p>
+                    </div>
+                    <div className="w-[95%] h-[1px] bg-gray-600 mb-8"></div>
+                    <div className="w-[98%] h-full bg-red-300 rounded-3xl bg-cover bg-no-repeat bg-left mx-8" style={{ backgroundImage: `url(${card.image})` }}></div>
+                  </div>
+                </Link>
               )
           )}
         </div>
