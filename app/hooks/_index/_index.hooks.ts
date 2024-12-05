@@ -84,7 +84,7 @@ export const useObserverIndex2 = () => {
 }
 
 export const useViewportHeight = () => {
-    const [viewportHeight, setViewportHeight] = useState<Number>(typeof window !== "undefined" ? window.innerHeight : 0);
+    const [viewportHeight, setViewportHeight] = useState<number>(typeof window !== "undefined" ? window.innerHeight : 0);
 
     useEffect(() => {
         if (typeof window === "undefined") return;
